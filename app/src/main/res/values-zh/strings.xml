@@ -10,8 +10,6 @@
     <string name="settings_category_notifications_title">通知与悬浮按钮</string>
     <string name="settings_category_notifications_desc">监控、提醒、悬浮按钮</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
-    <string name="buymeacoffee_url">https://buymeacoffee.com/ahmetcanarslan</string>
-    <string name="donate">捐赠</string>
     <string name="show_system_apps">显示系统应用</string>
     <string name="show_system_apps_description">在列表中包含 Android 系统应用，以便一并阻止。关闭后，已选择的系统应用将被取消选择。</string>
     <string name="app_visibility_change_disabled">防火墙启用时无法更改。请先关闭防火墙。</string>
@@ -20,8 +18,6 @@
     <string name="app_switch_selected">%1$s，已选中，%2$s</string>
     <string name="app_switch_unselected">%1$s，未选中，%2$s</string>
     <string name="cat_system">系统</string>
-    <string name="cat_selected">已选中</string>
-    <string name="cat_unselected">未选中</string>
     <string name="cat_user">用户</string>
     <string name="enable_firewall">防火墙</string>
     <string name="select_all">选择多个应用</string>
@@ -157,7 +153,6 @@
     <string name="language">语言</string>
     <string name="language_system_default">系统默认</string>
     <string name="adb_broadcast_usage_description">使用 adb 控制防火墙的快速指南</string>
-    <string name="support_developer_description">支持开发者</string>
     <string name="github">GitHub</string>
     <string name="github_description">查看源代码并贡献</string>
     <string name="settings">设置</string>

@@ -245,7 +245,7 @@ class MainActivity : BaseActivity() {
     private var suppressToggleListener = false
     private val activeFirewallPackages = mutableSetOf<String>()
     private val lastOperationErrorDetails = mutableMapOf<String, String>()
-    private enum class Category { NONE, FAVORITES, SYSTEM, SELECTED, UNSELECTED, USER, PROFILE }
+    private enum class Category { NONE, FAVORITES, SYSTEM, USER, PROFILE }
     private var currentCategory: Category = Category.NONE
     private var currentProfileUserId: Int = -1
     private val profileChipIds = LinkedHashMap<Int, Int>()
@@ -410,8 +410,6 @@ class MainActivity : BaseActivity() {
             currentCategory = when (checkedId) {
                 R.id.chip_favorites -> Category.FAVORITES
                 R.id.chip_system -> Category.SYSTEM
-                R.id.chip_selected -> Category.SELECTED
-                R.id.chip_unselected -> Category.UNSELECTED
                 R.id.chip_user -> Category.USER
                 -1 -> Category.NONE
                 else -> {
@@ -980,8 +978,6 @@ class MainActivity : BaseActivity() {
             Category.FAVORITES -> appList.filter { it.isFavorite }
             Category.SYSTEM -> appList.filter { it.isSystem }
             Category.USER -> appList.filter { !it.isSystem }
-            Category.SELECTED -> appList.filter { it.isSelected }
-            Category.UNSELECTED -> appList.filter { !it.isSelected }
             Category.PROFILE -> appList.filter { it.userId == currentProfileUserId }
         }.filter { app ->
             (currentCategory == Category.SYSTEM || showSystemApps || !app.isSystem) &&
@@ -2293,21 +2289,13 @@ class MainActivity : BaseActivity() {
         val categoryGroup = findViewById<ChipGroup?>(R.id.categoryChipGroup) ?: return
         val chipSystem = findViewById<Chip?>(R.id.chip_system)
         val chipUser = findViewById<Chip?>(R.id.chip_user)
-        val chipSelected = findViewById<Chip?>(R.id.chip_selected)
 
         chipSystem?.visibility = if (showSystemApps) View.VISIBLE else View.GONE
         chipUser?.visibility = if (showSystemApps) View.VISIBLE else View.GONE
 
-        chipSelected?.visibility = if (moveSelectedTop) View.GONE else View.VISIBLE
-
         syncProfileChips(categoryGroup)
 
         if (!showSystemApps && (categoryGroup.checkedChipId == R.id.chip_system || categoryGroup.checkedChipId == R.id.chip_user)) {
-            categoryGroup.clearCheck()
-            currentCategory = Category.NONE
-            sortAndFilterApps(preserveScrollPosition = false)
-        }
-        if (moveSelectedTop && (categoryGroup.checkedChipId == R.id.chip_selected || categoryGroup.checkedChipId == R.id.chip_unselected)) {
             categoryGroup.clearCheck()
             currentCategory = Category.NONE
             sortAndFilterApps(preserveScrollPosition = false)

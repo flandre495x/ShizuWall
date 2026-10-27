@@ -9,8 +9,6 @@
     <string name="settings_category_notifications_title">Notifications &amp; floating button</string>
     <string name="settings_category_notifications_desc">Monitoring, alerts, overlay button</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
-    <string name="buymeacoffee_url">https://buymeacoffee.com/ahmetcanarslan</string>
-    <string name="donate">Donate</string>
     <string name="show_system_apps">Show system apps</string>
     <string name="show_system_apps_description">Include Android system apps in the list so they can be blocked too. Turning this off unselects any system app you had selected.</string>
     <string name="app_visibility_change_disabled">Cannot change this while the firewall is enabled. Disable the firewall first.</string>
@@ -19,8 +17,6 @@
     <string name="app_switch_selected">%1$s, Selected, %2$s</string>
     <string name="app_switch_unselected">%1$s, Not selected, %2$s</string>
     <string name="cat_system">System</string>
-    <string name="cat_selected">Selected</string>
-    <string name="cat_unselected">Unselected</string>
     <string name="cat_user">User</string>
     <string name="enable_firewall">Firewall</string>
     <string name="select_all">Select multiple apps</string>
@@ -164,7 +160,6 @@
     <string name="language">Language</string>
     <string name="language_system_default">System default</string>
     <string name="adb_broadcast_usage_description">Quick guide to use adb to control firewall</string>
-    <string name="support_developer_description">Support the developer</string>
     <string name="github">GitHub</string>
     <string name="github_description">View source code and contribute</string>
     <string name="settings">Settings</string>

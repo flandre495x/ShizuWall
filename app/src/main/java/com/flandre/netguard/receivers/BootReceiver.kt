@@ -192,9 +192,6 @@ class BootReceiver : BroadcastReceiver() {
     private fun readString(primary: SharedPreferences, fallback: SharedPreferences?, key: String, defaultValue: String): String =
         source(primary, fallback, key)?.getString(key, defaultValue) ?: defaultValue
 
-    private fun readStringSet(primary: SharedPreferences, fallback: SharedPreferences?, key: String): Set<String> =
-        source(primary, fallback, key)?.getStringSet(key, emptySet()) ?: emptySet()
-
     private fun loadActivePackages(
         context: Context,
         primary: SharedPreferences,

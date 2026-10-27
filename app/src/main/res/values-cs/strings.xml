@@ -9,8 +9,6 @@
     <string name="settings_category_notifications_title">Oznámení a plovoucí tlačítko</string>
     <string name="settings_category_notifications_desc">Sledování, upozornění, plovoucí tlačítko</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
-    <string name="buymeacoffee_url">https://buymeacoffee.com/ahmetcanarslan</string>
-    <string name="donate">Podpořit</string>
     <string name="show_system_apps">Zobrazit systémové aplikace</string>
     <string name="show_system_apps_description">Zahrnout do seznamu systémové aplikace Androidu, aby je bylo možné také blokovat. Vypnutím se odznačí všechny vybrané systémové aplikace.</string>
     <string name="app_visibility_change_disabled">Toto nelze změnit, když je firewall zapnutý. Nejprve firewall vypněte.</string>
@@ -19,8 +17,6 @@
     <string name="app_switch_selected">%1$s, vybráno, %2$s</string>
     <string name="app_switch_unselected">%1$s, nevybráno, %2$s</string>
     <string name="cat_system">Systém</string>
-    <string name="cat_selected">Vybráno</string>
-    <string name="cat_unselected">Nevybráno</string>
     <string name="cat_user">Uživatel</string>
     <string name="enable_firewall">Brána firewall</string>
     <string name="select_all">Vybrat více aplikací</string>
@@ -163,7 +159,6 @@
     <string name="language">Jazyk</string>
     <string name="language_system_default">Vychozí systémové</string>
     <string name="adb_broadcast_usage_description">Stručný návod k použití adb pro ovládání brány firewall</string>
-    <string name="support_developer_description">Podpořit vývojáře</string>
     <string name="github">GitHub</string>
     <string name="github_description">Zobrazit zdrojový kód a podílet se</string>
     <string name="settings">Nastavení</string>

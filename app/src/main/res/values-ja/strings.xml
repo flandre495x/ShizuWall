@@ -9,8 +9,6 @@
     <string name="settings_category_notifications_title">通知とフローティングボタン</string>
     <string name="settings_category_notifications_desc">監視、アラート、オーバーレイボタン</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
-    <string name="buymeacoffee_url">https://buymeacoffee.com/ahmetcanarslan</string>
-    <string name="donate">寄付</string>
     <string name="show_system_apps">システムアプリを表示</string>
     <string name="show_system_apps_description">Android のシステムアプリを一覧に含めてブロックできるようにします。オフにすると、選択済みのシステムアプリは選択解除されます。</string>
     <string name="app_visibility_change_disabled">ファイアウォールが有効な間は変更できません。先にファイアウォールを無効にしてください。</string>
@@ -19,8 +17,6 @@
     <string name="app_switch_selected">%1$s、選択済み、%2$s</string>
     <string name="app_switch_unselected">%1$s、未選択、%2$s</string>
     <string name="cat_system">システム</string>
-    <string name="cat_selected">選択済み</string>
-    <string name="cat_unselected">未選択</string>
     <string name="cat_user">ユーザー</string>
     <string name="enable_firewall">ファイアウォール</string>
     <string name="select_all">複数のアプリを選択</string>
@@ -156,7 +152,6 @@
     <string name="language">言語</string>
     <string name="language_system_default">システムのデフォルト</string>
     <string name="adb_broadcast_usage_description">adb を使用したファイアウォール制御のクイックガイド</string>
-    <string name="support_developer_description">開発者を支援する</string>
     <string name="github">GitHub</string>
     <string name="github_description">ソースコードの表示と貢献</string>
     <string name="settings">設定</string>

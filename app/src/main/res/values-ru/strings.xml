@@ -9,8 +9,6 @@
     <string name="settings_category_notifications_title">Уведомления и плавающая кнопка</string>
     <string name="settings_category_notifications_desc">Мониторинг, оповещения, плавающая кнопка</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
-    <string name="buymeacoffee_url">https://buymeacoffee.com/ahmetcanarslan</string>
-    <string name="donate">Пожертвовать</string>
     <string name="show_system_apps">Показать системные приложения</string>
     <string name="show_system_apps_description">Показывать системные приложения Android в списке, чтобы их тоже можно было блокировать. При отключении выбранные системные приложения будут сняты с выбора.</string>
     <string name="app_visibility_change_disabled">Это нельзя изменить, пока брандмауэр включён. Сначала отключите брандмауэр.</string>
@@ -19,8 +17,6 @@
     <string name="app_switch_selected">%1$s, выбрано, %2$s</string>
     <string name="app_switch_unselected">%1$s, не выбрано, %2$s</string>
     <string name="cat_system">Система</string>
-    <string name="cat_selected">Выбрано</string>
-    <string name="cat_unselected">Не выбрано</string>
     <string name="cat_user">Пользователь</string>
     <string name="enable_firewall">Брандмауэр</string>
     <string name="select_all">Выбрать несколько приложений</string>
@@ -156,7 +152,6 @@
     <string name="language">Язык</string>
     <string name="language_system_default">Системный по умолчанию</string>
     <string name="adb_broadcast_usage_description">Краткое руководство по использованию adb для управления брандмауэром</string>
-    <string name="support_developer_description">Поддержать разработчика</string>
     <string name="github">GitHub</string>
     <string name="github_description">Просмотреть исходный код и внести вклад</string>
     <string name="settings">Настройки</string>

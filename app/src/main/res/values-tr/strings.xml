@@ -10,8 +10,6 @@
     <string name="settings_category_notifications_title">Bildirimler ve yüzen buton</string>
     <string name="settings_category_notifications_desc">İzleme, uyarılar, yüzen buton</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
-    <string name="buymeacoffee_url">https://buymeacoffee.com/ahmetcanarslan</string>
-    <string name="donate">Bağış Yap</string>
     <string name="show_system_apps">Sistem uygulamalarını göster</string>
     <string name="show_system_apps_description">Android sistem uygulamalarını listeye ekler, böylece onları da engelleyebilirsiniz. Kapatıldığında seçili sistem uygulamalarının seçimi kaldırılır.</string>
     <string name="app_visibility_change_disabled">Güvenlik duvarı açıkken bu değiştirilemez. Önce güvenlik duvarını kapatın.</string>
@@ -20,8 +18,6 @@
     <string name="app_switch_selected">%1$s, Seçili, %2$s</string>
     <string name="app_switch_unselected">%1$s, Seçili değil, %2$s</string>
     <string name="cat_system">Sistem</string>
-    <string name="cat_selected">Seçili</string>
-    <string name="cat_unselected">Seçili değil</string>
     <string name="cat_user">Kullanıcı</string>
     <string name="enable_firewall">Güvenlik Duvarı</string>
     <string name="select_all">Birden fazla uygulama seç</string>
@@ -157,7 +153,6 @@
     <string name="language">Dil</string>
     <string name="language_system_default">Sistem varsayılanı</string>
     <string name="adb_broadcast_usage_description">Güvenlik duvarını kontrol etmek için adb kullanımına hızlı rehber</string>
-    <string name="support_developer_description">Geliştiriciyi destekle</string>
     <string name="github">GitHub</string>
     <string name="github_description">Kaynak kodunu görüntüle ve katkıda bulun</string>
     <string name="settings">Ayarlar</string>
