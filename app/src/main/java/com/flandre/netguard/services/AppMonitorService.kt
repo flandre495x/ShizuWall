@@ -1,0 +1,224 @@
+package com.flandre.netguard.services
+
+import android.Manifest
+import android.app.*
+import android.content.*
+import android.content.pm.PackageManager
+import android.content.pm.ServiceInfo
+import android.os.Build
+import android.os.IBinder
+import androidx.core.app.NotificationCompat
+import com.flandre.netguard.FirewallMode
+import com.flandre.netguard.R
+import com.flandre.netguard.profiles.ProfilesStore
+import com.flandre.netguard.receivers.NotificationActionReceiver
+import com.flandre.netguard.ui.MainActivity
+import com.flandre.netguard.utils.AppKey
+import com.flandre.netguard.utils.FirewallUtils
+import com.flandre.netguard.utils.MultiUserApps
+import com.flandre.netguard.utils.UiUtils
+
+class AppMonitorService : Service() {
+
+    companion object {
+        const val CHANNEL_ID_SILENT = "app_monitor_channel_silent"
+        const val CHANNEL_ID_LOUD = "app_monitor_channel_loud"
+        const val FOREGROUND_NOTIFICATION_ID = 2001
+        const val APP_INSTALL_NOTIFICATION_ID_BASE = 3000
+
+        fun sync(context: Context) {
+            val prefs = context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+            val intent = Intent(context, AppMonitorService::class.java)
+            val wanted = prefs.getBoolean(MainActivity.KEY_APP_MONITOR_ENABLED, false) ||
+                prefs.getBoolean(MainActivity.KEY_AUTO_FIREWALL_NEW_APPS, false) ||
+                prefs.getBoolean(MainActivity.KEY_SHOW_FIREWALL_STATUS_NOTIFICATION, false)
+            if (wanted) context.startForegroundService(intent) else context.stopService(intent)
+        }
+
+        fun showNewAppNotification(context: Context, key: String) {
+            val packageName = AppKey.packageOf(key)
+            val pm = context.packageManager
+            val appInfo = try {
+                pm.getApplicationInfo(packageName, 0)
+            } catch (e: PackageManager.NameNotFoundException) {
+                null
+            }
+            val hasInternet = appInfo == null || pm.checkPermission(Manifest.permission.INTERNET, packageName) == PackageManager.PERMISSION_GRANTED
+
+            val prefs = context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+            val notificationsEnabled = prefs.getBoolean(MainActivity.KEY_APP_MONITOR_ENABLED, false)
+            val isFirewallEnabled = prefs.getBoolean(MainActivity.KEY_FIREWALL_ENABLED, false)
+            val firewallMode = FirewallMode.fromName(prefs.getString(MainActivity.KEY_FIREWALL_MODE, FirewallMode.DEFAULT.name))
+            val wasAutoFirewalled = hasInternet && FirewallUtils.applyNewAppPolicy(context, key)
+
+            if (!notificationsEnabled && !wasAutoFirewalled) return
+
+            val (actionText, action) = when {
+                !hasInternet ->
+                    context.getString(R.string.dismiss) to NotificationActionReceiver.ACTION_DISMISS
+                !isFirewallEnabled ->
+                    context.getString(R.string.add_to_selected_list) to NotificationActionReceiver.ACTION_ADD_TO_LIST
+                wasAutoFirewalled ->
+                    context.getString(R.string.allow_app) to NotificationActionReceiver.ACTION_ALLOW_AND_UNSELECT
+                firewallMode == FirewallMode.WHITELIST ->
+                    context.getString(R.string.allow_app) to NotificationActionReceiver.ACTION_WHITELIST_APP
+                else ->
+                    context.getString(R.string.firewall_app) to NotificationActionReceiver.ACTION_FIREWALL_APP
+            }
+
+            val notificationId = APP_INSTALL_NOTIFICATION_ID_BASE + key.hashCode()
+
+            val actionIntent = Intent(context, NotificationActionReceiver::class.java).apply {
+                this.action = action
+                putExtra(NotificationActionReceiver.EXTRA_PACKAGE_NAME, AppKey.normalize(key))
+                putExtra("notification_id", notificationId)
+            }
+
+            val pendingActionIntent = PendingIntent.getBroadcast(
+                context,
+                key.hashCode(),
+                actionIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val notification = NotificationCompat.Builder(context, CHANNEL_ID_LOUD)
+                .setContentTitle(context.getString(R.string.new_app_installed, appInfo?.let { pm.getApplicationLabel(it).toString() } ?: packageName))
+                .setContentText(if (AppKey.isSecondary(key)) "$packageName · ${MultiUserApps.userLabel(context, AppKey.userIdOf(key))}" else packageName)
+                .setSubText(if (hasInternet) null else context.getString(R.string.app_info_internet_no))
+                .setSmallIcon(R.drawable.ic_quick_tile)
+                .setLargeIcon(appInfo?.let { UiUtils.drawableToBitmap(pm.getApplicationIcon(it)) })
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .addAction(0, actionText, pendingActionIntent)
+                .build()
+
+            val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            createLoudChannel(context, notificationManager)
+            notificationManager.notify(notificationId, notification)
+        }
+
+        private fun createLoudChannel(context: Context, manager: NotificationManager) {
+            manager.createNotificationChannel(
+                NotificationChannel(
+                    CHANNEL_ID_LOUD,
+                    context.getString(R.string.app_installed_notification_channel_name),
+                    NotificationManager.IMPORTANCE_DEFAULT
+                ).apply {
+                    description = context.getString(R.string.app_installed_notification_channel_description)
+                    enableVibration(true)
+                }
+            )
+        }
+    }
+
+    private lateinit var prefs: SharedPreferences
+
+    private val prefListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        if (key == MainActivity.KEY_FIREWALL_ENABLED ||
+            key == MainActivity.KEY_SHOW_FIREWALL_STATUS_NOTIFICATION ||
+            key == MainActivity.KEY_ACTIVE_PROFILE_ID
+        ) {
+            updateForegroundNotification()
+        }
+    }
+
+    private val packageReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            if (intent.action == Intent.ACTION_PACKAGE_ADDED) {
+                val packageName = intent.data?.schemeSpecificPart ?: return
+                if (!intent.getBooleanExtra(Intent.EXTRA_REPLACING, false)) {
+                    showNewAppNotification(context, packageName)
+                }
+            }
+        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        prefs = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        createNotificationChannel()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            startForeground(FOREGROUND_NOTIFICATION_ID, createForegroundNotification(), ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+        } else {
+            startForeground(FOREGROUND_NOTIFICATION_ID, createForegroundNotification())
+        }
+
+        val filter = IntentFilter(Intent.ACTION_PACKAGE_ADDED).apply {
+            addDataScheme("package")
+        }
+        registerReceiver(packageReceiver, filter)
+        prefs.registerOnSharedPreferenceChangeListener(prefListener)
+    }
+
+    override fun onDestroy() {
+        try {
+            unregisterReceiver(packageReceiver)
+        } catch (_: Exception) {
+        }
+        try {
+            prefs.unregisterOnSharedPreferenceChangeListener(prefListener)
+        } catch (_: Exception) {
+        }
+        super.onDestroy()
+    }
+
+    override fun onBind(intent: Intent?): IBinder? = null
+
+    private fun createNotificationChannel() {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        val silentName = getString(R.string.app_monitor_notification_channel_name)
+        val silentDesc = getString(R.string.app_monitor_notification_channel_description)
+        val silentChannel = NotificationChannel(CHANNEL_ID_SILENT, silentName, NotificationManager.IMPORTANCE_LOW).apply {
+            description = silentDesc
+            setShowBadge(false)
+        }
+        notificationManager.createNotificationChannel(silentChannel)
+
+        createLoudChannel(this, notificationManager)
+    }
+
+    private fun createForegroundNotification(): Notification {
+        val pendingIntent = PendingIntent.getActivity(
+            this, 0, Intent(this, MainActivity::class.java),
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val showFirewallStatus = prefs.getBoolean(MainActivity.KEY_SHOW_FIREWALL_STATUS_NOTIFICATION, false)
+        val profileName = ProfilesStore.activeProfileId(this)
+            ?.let { ProfilesStore.getById(this, it)?.name }
+        val title = if (showFirewallStatus) {
+            if (prefs.getBoolean(MainActivity.KEY_FIREWALL_ENABLED, false)) {
+                getString(R.string.firewall_status_notification_enabled_title)
+            } else {
+                getString(R.string.firewall_status_notification_disabled_title)
+            }
+        } else {
+            getString(R.string.app_monitor_service)
+        }
+
+        val hint = getString(R.string.notification_hold_to_disable)
+        val body = if (showFirewallStatus && profileName != null) {
+            getString(R.string.notification_body_with_hint, profileName, hint)
+        } else {
+            hint
+        }
+
+        return NotificationCompat.Builder(this, CHANNEL_ID_SILENT)
+            .setContentTitle(title)
+            .setContentText(body)
+            .setSmallIcon(R.drawable.ic_quick_tile)
+            .setContentIntent(pendingIntent)
+            .setOngoing(true)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .build()
+    }
+
+    private fun updateForegroundNotification() {
+        try {
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.notify(FOREGROUND_NOTIFICATION_ID, createForegroundNotification())
+        } catch (_: Exception) {
+        }
+    }
+}

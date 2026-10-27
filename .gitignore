@@ -19,3 +19,4 @@ daemon.bin
 app/fdroid/release/
 app/full/release/
 .vscode/
+.pi/

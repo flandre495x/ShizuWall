@@ -1,0 +1,309 @@
+package com.flandre.netguard.receivers
+
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.os.SystemClock
+import android.os.UserManager
+import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import com.flandre.netguard.FirewallMode
+import com.flandre.netguard.R
+import com.flandre.netguard.WorkingMode
+import com.flandre.netguard.services.AppMonitorService
+import com.flandre.netguard.services.ForegroundDetectionService
+import com.flandre.netguard.shell.RootShellExecutor
+import com.flandre.netguard.shell.ShellExecutorProvider
+import com.flandre.netguard.ui.MainActivity
+import com.flandre.netguard.utils.AppKey
+import com.flandre.netguard.utils.ShizukuPackageResolver
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import com.flandre.netguard.firewall.FirewallCommands
+
+class BootReceiver : BroadcastReceiver() {
+
+    companion object {
+        private const val CHANNEL_ID = "netguard_boot_channel"
+        private const val NOTIFICATION_ID = 1001
+        private const val TAG = "BootReceiver"
+        private val PACKAGE_NAME_REGEX = Regex("^(\\d+:)?[a-zA-Z0-9_.]+$")
+    }
+
+    override fun onReceive(context: Context, intent: Intent?) {
+        val action = intent?.action
+        Log.d(TAG, "onReceive action=$action")
+
+        if (action != Intent.ACTION_BOOT_COMPLETED && action != Intent.ACTION_LOCKED_BOOT_COMPLETED) {
+            Log.d(TAG, "Ignoring action: $action")
+            return
+        }
+
+        val pendingResult = goAsync()
+        val appContext = context.applicationContext
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                handleBootEvent(appContext, action)
+            } finally {
+                pendingResult.finish()
+            }
+        }
+    }
+
+    private suspend fun handleBootEvent(context: Context, action: String?) {
+        val dpPrefs = getDeviceProtectedPrefs(context)
+        val normalPrefs = getCredentialProtectedPrefsOrNull(context)
+
+        val enabled = readBoolean(dpPrefs, normalPrefs, MainActivity.KEY_FIREWALL_ENABLED, false)
+        val savedElapsed = readLong(dpPrefs, normalPrefs, MainActivity.KEY_FIREWALL_SAVED_ELAPSED, -1L)
+        val appMonitorEnabled = readBoolean(dpPrefs, normalPrefs, MainActivity.KEY_APP_MONITOR_ENABLED, false)
+        val autoFirewallEnabled = readBoolean(dpPrefs, normalPrefs, MainActivity.KEY_AUTO_FIREWALL_NEW_APPS, false)
+        val firewallStatusNotificationEnabled = readBoolean(dpPrefs, normalPrefs, MainActivity.KEY_SHOW_FIREWALL_STATUS_NOTIFICATION, false)
+        val floatingButtonEnabled = readBoolean(dpPrefs, normalPrefs, com.flandre.netguard.services.FloatingButtonService.KEY_FLOATING_BUTTON_ENABLED, false)
+        Log.d(TAG, "prefs: enabled=$enabled, savedElapsed=$savedElapsed, appMonitorEnabled=$appMonitorEnabled, autoFirewallEnabled=$autoFirewallEnabled, firewallStatusNotificationEnabled=$firewallStatusNotificationEnabled, floatingButtonEnabled=$floatingButtonEnabled")
+
+        if (appMonitorEnabled || autoFirewallEnabled || firewallStatusNotificationEnabled) {
+            val monitorIntent = Intent(context, AppMonitorService::class.java)
+            context.startForegroundService(monitorIntent)
+        }
+
+        if (floatingButtonEnabled) {
+            com.flandre.netguard.services.FloatingButtonService.start(context)
+        }
+
+        val rebootDetected = enabled && savedElapsed > 0L && SystemClock.elapsedRealtime() < savedElapsed
+        if (!rebootDetected) {
+            Log.d(TAG, "No reboot detected (currentElapsed >= savedElapsed)")
+            if (enabled && action == Intent.ACTION_BOOT_COMPLETED) {
+                maybeStartForegroundDetection(context, dpPrefs, normalPrefs)
+            }
+            return
+        }
+
+        if (action == Intent.ACTION_LOCKED_BOOT_COMPLETED) {
+            Log.d(TAG, "Deferring reboot state handling until BOOT_COMPLETED")
+            return
+        }
+
+        val workingMode = WorkingMode.fromName(
+            readString(dpPrefs, normalPrefs, MainActivity.KEY_WORKING_MODE, WorkingMode.SHIZUKU.name)
+        )
+        val rootReapplyEnabled = readBoolean(
+            dpPrefs,
+            normalPrefs,
+            MainActivity.KEY_APPLY_ROOT_RULES_AFTER_REBOOT,
+            false
+        )
+
+        val shouldAttemptRootReapply =
+            workingMode == WorkingMode.ROOT &&
+                rootReapplyEnabled
+
+        if (shouldAttemptRootReapply) {
+            val activePackages = loadActivePackages(context, dpPrefs, normalPrefs, context.packageName)
+            val reapplied = reapplyRootFirewallRules(context, activePackages)
+            if (reapplied) {
+                val elapsed = SystemClock.elapsedRealtime()
+                updateFirewallStateAfterReapply(dpPrefs, elapsed)
+                updateFirewallStateAfterReapply(normalPrefs, elapsed)
+                Log.d(TAG, "Successfully re-applied firewall rules after reboot via root")
+                maybeStartForegroundDetection(context, dpPrefs, normalPrefs)
+                return
+            }
+            Log.w(TAG, "Root re-apply failed, clearing persisted firewall state")
+        }
+
+        val autoEnableOnShizukuStart = readBoolean(
+            dpPrefs,
+            normalPrefs,
+            MainActivity.KEY_AUTO_ENABLE_ON_SHIZUKU_START,
+            false
+        )
+        if (workingMode == WorkingMode.SHIZUKU && autoEnableOnShizukuStart) {
+            Log.d(TAG, "Keeping firewall state; NetGuardApp re-enables it when Shizuku starts")
+            maybeStartForegroundDetection(context, dpPrefs, normalPrefs)
+            return
+        }
+
+        clearFirewallState(dpPrefs)
+        clearFirewallState(normalPrefs)
+
+        val messageRes = if (shouldAttemptRootReapply) {
+            R.string.firewall_reboot_apply_failed_message
+        } else {
+            R.string.firewall_reboot_message
+        }
+        postBootNotification(context, messageRes)
+    }
+
+    private fun maybeStartForegroundDetection(
+        context: Context,
+        primary: SharedPreferences,
+        fallback: SharedPreferences?
+    ) {
+        val firewallMode = FirewallMode.fromName(
+            readString(primary, fallback, MainActivity.KEY_FIREWALL_MODE, FirewallMode.DEFAULT.name)
+        )
+        if (firewallMode.requiresForegroundDetection()) {
+            ForegroundDetectionService.start(context)
+        }
+    }
+
+    private fun getDeviceProtectedPrefs(context: Context): SharedPreferences {
+        return try {
+            val dpCtx = context.createDeviceProtectedStorageContext()
+            dpCtx.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        } catch (e: Exception) {
+            Log.w(TAG, "Failed to access device-protected prefs, falling back to normal prefs", e)
+            context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        }
+    }
+
+    private fun getCredentialProtectedPrefsOrNull(context: Context): SharedPreferences? {
+        val userManager = context.getSystemService(UserManager::class.java)
+        if (userManager != null && !userManager.isUserUnlocked) {
+            Log.d(TAG, "Credential-protected prefs unavailable until user unlock")
+            return null
+        }
+
+        return try {
+            context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        } catch (e: IllegalStateException) {
+            Log.w(TAG, "Credential-protected prefs unavailable", e)
+            null
+        }
+    }
+
+    private fun source(primary: SharedPreferences, fallback: SharedPreferences?, key: String): SharedPreferences? =
+        if (primary.contains(key)) primary else fallback
+
+    private fun readBoolean(primary: SharedPreferences, fallback: SharedPreferences?, key: String, defaultValue: Boolean): Boolean =
+        source(primary, fallback, key)?.getBoolean(key, defaultValue) ?: defaultValue
+
+    private fun readLong(primary: SharedPreferences, fallback: SharedPreferences?, key: String, defaultValue: Long): Long =
+        source(primary, fallback, key)?.getLong(key, defaultValue) ?: defaultValue
+
+    private fun readString(primary: SharedPreferences, fallback: SharedPreferences?, key: String, defaultValue: String): String =
+        source(primary, fallback, key)?.getString(key, defaultValue) ?: defaultValue
+
+    private fun readStringSet(primary: SharedPreferences, fallback: SharedPreferences?, key: String): Set<String> =
+        source(primary, fallback, key)?.getStringSet(key, emptySet()) ?: emptySet()
+
+    private fun loadActivePackages(
+        context: Context,
+        primary: SharedPreferences,
+        fallback: SharedPreferences?,
+        selfPackage: String
+    ): List<String> {
+        val active = source(primary, fallback, MainActivity.KEY_ACTIVE_PACKAGES)
+            ?.getStringSet(MainActivity.KEY_ACTIVE_PACKAGES, emptySet()) ?: emptySet()
+
+        return active
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+            .filterNot { AppKey.packageOf(it) == selfPackage }
+            .filterNot { ShizukuPackageResolver.isShizukuPackage(context, AppKey.packageOf(it)) }
+            .filter { PACKAGE_NAME_REGEX.matches(it) }
+            .distinct()
+    }
+
+    private suspend fun reapplyRootFirewallRules(context: Context, activePackages: List<String>): Boolean {
+        if (!RootShellExecutor.hasRootAccess()) {
+            Log.w(TAG, "Root access not available during reboot re-apply")
+            return false
+        }
+
+        val executor = ShellExecutorProvider.forContext(context)
+        val chainEnabled = executor.exec(FirewallCommands.CHAIN3_ENABLE).success
+        if (!chainEnabled) {
+            Log.w(TAG, "Failed to enable chain3 during reboot re-apply")
+            return false
+        }
+
+        val blockResults = executor.execBatch(
+            FirewallCommands.blockAll(activePackages)
+        )
+        for ((index, pkg) in activePackages.withIndex()) {
+            if (!blockResults[index].isEffectivelySuccess) {
+                executor.exec(FirewallCommands.CHAIN3_DISABLE)
+                Log.w(TAG, "Failed to apply package rule during reboot re-apply: $pkg")
+                return false
+            }
+        }
+
+        return true
+    }
+
+    private fun updateFirewallStateAfterReapply(prefs: SharedPreferences?, elapsed: Long) {
+        prefs ?: return
+        prefs.edit()
+            .putBoolean(MainActivity.KEY_FIREWALL_ENABLED, true)
+            .putLong(MainActivity.KEY_FIREWALL_SAVED_ELAPSED, elapsed)
+            .putLong(MainActivity.KEY_FIREWALL_UPDATE_TS, System.currentTimeMillis())
+            .apply()
+    }
+
+    private fun clearFirewallState(prefs: SharedPreferences?) {
+        prefs ?: return
+        prefs.edit().apply {
+            remove(MainActivity.KEY_FIREWALL_ENABLED)
+            remove(MainActivity.KEY_FIREWALL_SAVED_ELAPSED)
+            remove(MainActivity.KEY_ACTIVE_PACKAGES)
+            apply()
+        }
+    }
+
+    private fun postBootNotification(context: Context, messageRes: Int) {
+        createChannelIfNeeded(context)
+        val intentToOpen = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val pending = PendingIntent.getActivity(
+            context,
+            0,
+            intentToOpen,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val title = context.getString(R.string.firewall_reboot_title)
+        val text = context.getString(messageRes)
+
+        val notifBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .setContentTitle(title)
+            .setContentText(text)
+            .setAutoCancel(true)
+            .setContentIntent(pending)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        try {
+            NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notifBuilder.build())
+            Log.d(TAG, "Posted boot notification (id=$NOTIFICATION_ID)")
+        } catch (se: SecurityException) {
+            Log.w(TAG, "Failed to post notification: missing permission or security error", se)
+        } catch (e: Exception) {
+            Log.e(TAG, "Unexpected error while posting notification", e)
+        }
+    }
+
+    private fun createChannelIfNeeded(context: Context) {
+        val nm = context.getSystemService(NotificationManager::class.java)
+        if (nm.getNotificationChannel(CHANNEL_ID) == null) {
+            val channel = NotificationChannel(
+                CHANNEL_ID,
+                "NetGuard boot notifications",
+                NotificationManager.IMPORTANCE_DEFAULT
+            ).apply {
+                description = "Notifications about firewall status after device reboot"
+            }
+            nm.createNotificationChannel(channel)
+            Log.d(TAG, "Created notification channel $CHANNEL_ID")
+        }
+    }
+}

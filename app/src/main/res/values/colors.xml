@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="launcher_icon">#ffb51e50</color>
+    <color name="launcher_icon_background">#ffffd9de</color>
     <color name="widget_content_system">#FF1B1B1F</color>
     <color name="widget_content_light">#FF1B1B1F</color>
     <color name="widget_content_dark">#FFECECEC</color>

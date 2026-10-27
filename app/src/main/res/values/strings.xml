@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">ShizuWall</string>
+    <string name="app_name">NetGuard</string>
     <string name="settings_category_appearance_title">Appearance</string>
-    <string name="settings_category_appearance_desc">Theme, colors, font, language</string>
+    <string name="settings_category_appearance_desc">Theme, colors, language</string>
     <string name="settings_category_firewall_title">Firewall behavior</string>
     <string name="settings_category_firewall_desc">Modes, confirmations, error handling</string>
     <string name="settings_category_backend_title">Backend &amp; working mode</string>
-    <string name="settings_category_backend_desc">Shizuku, LADB, Root</string>
+    <string name="settings_category_backend_desc">Shizuku / Root</string>
     <string name="settings_category_notifications_title">Notifications &amp; floating button</string>
     <string name="settings_category_notifications_desc">Monitoring, alerts, overlay button</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
@@ -23,28 +23,21 @@
     <string name="cat_unselected">Unselected</string>
     <string name="cat_user">User</string>
     <string name="enable_firewall">Firewall</string>
-    <string name="font_default">Default</string>
-    <string name="font_ndot">Ndot</string>
     <string name="select_all">Select multiple apps</string>
     <string name="scroll_to_top">Scroll to top</string>
     <string name="cat_favorites">Favorites</string>
-    <string name="made_by">Made with ❤️ by Ahmet Can Arslan</string>
+    <string name="made_by">Made by Ahmet Can Arslan</string>
     <string name="reset_app_menu">Reset App</string>
-    <string name="later">Later</string>
-    <string name="export_successful">Export successful</string>
-    <string name="export_failed">Export failed: %s</string>
-    <string name="import_successful">Import successful. Please restart the app.</string>
-    <string name="import_failed">Import failed: %s</string>
     <string name="exit_confirm_message">Press back again to exit</string>
     <string name="reset_app_title">Reset App</string>
     <string name="reset_app_message">Are you sure you want to reset the app? This will disable the firewall (if active), clear all data, and close the app.</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
     <string name="android11_unsupported_title">Android 11 compatibility</string>
-    <string name="android11_unsupported_message">Some devices on Android 11 dont support ShizuWall. If you see an error like:\n - no command found set chain3 - \nit means your device is not supported and there is nothing to do at the moment.</string>
+    <string name="android11_unsupported_message">Some devices on Android 11 dont support NetGuard. If you see an error like:\n - no command found set chain3 - \nit means your device is not supported and there is nothing to do at the moment.</string>
     <string name="dont_show_again">Dont show again</string>
     <string name="device_unsupported_title">Device not supported</string>
-    <string name="device_unsupported_message">Your Android build does not provide the connectivity firewall chain ShizuWall relies on. This is common on Android 11–12 and on some OEM ROMs such as MIUI/HyperOS. The system rejects the command itself, so switching between Shizuku, LADB and root will not help.</string>
+    <string name="device_unsupported_message">Your Android build does not provide the connectivity firewall chain NetGuard relies on. This is common on Android 11–12 and on some OEM ROMs such as MIUI/HyperOS. The system rejects the command itself, so switching between Shizuku, root will not help.</string>
     <string name="firewall_cleanup_warning">Warning: Firewall cleanup failed. Please REBOOT your device to restore internet access.</string>
     <string name="app_reset_complete">App reset complete. Closing…</string>
     <string name="reset_app_failed">Failed to reset app: %s</string>
@@ -66,13 +59,13 @@
     <string name="adb_broadcast_dev_disable_framework">Disable firewall framework</string>
     <string name="adb_broadcast_extras_summary" formatted="false">%1$s (boolean): true = enable, false = disable
 
-%2$s (string, optional): comma-separated app list. If omitted, the firewall is turned on or off as a whole using the apps selected in ShizuWall. If given, only those apps are blocked or unblocked. Prefix an app with a user id for work profile or clone apps, for example 150:com.example.app. Apps sent this way are selected or unselected in ShizuWall too, and blocking one turns the firewall on if it was off.</string>
+%2$s (string, optional): comma-separated app list. If omitted, the firewall is turned on or off as a whole using the apps selected in NetGuard. If given, only those apps are blocked or unblocked. Prefix an app with a user id for work profile or clone apps, for example 150:com.example.app. Apps sent this way are selected or unselected in NetGuard too, and blocking one turns the firewall on if it was off.</string>
     <string name="ok">OK</string>
     <string name="no_apps_selected">No apps selected</string>
     <string name="shizuku_not_running">Shizuku not running</string>
     <string name="shizuku_permission_required">Shizuku permission required</string>
     <string name="firewall">Firewall</string>
-    <string name="welcome_title">Welcome to ShizuWall</string>
+    <string name="welcome_title">Welcome to NetGuard</string>
     <string name="welcome_message">Block unwanted network connections without root or vpn</string>
     <string name="next">Next</string>
     <string name="notification_permission_title">Notification Permission</string>
@@ -86,12 +79,10 @@
     <string name="shizuku_required_title">Shizuku Mode</string>
     <string name="shizuku_required_message">The developer is not responsible for any negative consequences. Please install and activate Shizuku before proceeding.</string>
     <string name="onboarding_mode_selection_title">Choose Working Mode</string>
-    <string name="onboarding_mode_selection_message">ShizuWall can work in three modes. Shizuku is recommended for most users. If your device doesn\'t support Shizuku you can choose LADB or Root mode. Working Mode can be changed later</string>
+    <string name="onboarding_mode_selection_message">NetGuard supports Shizuku (recommended) and Root. You can change the backend later.</string>
     <string name="use_shizuku">Use Shizuku</string>
-    <string name="use_ladb">Use LADB</string>
     <string name="use_root">Use Root</string>
-    <string name="ladb_onboarding_message">LADB mode allows ShizuWall to work by using a local ADB daemon. You will need to pair with Wireless Debugging once on LADB Setup page which located in settings. The developer is not responsible for any negative consequences.</string>
-    <string name="root_onboarding_message">Root mode allows ShizuWall to work using root privileges. Your device must be rooted. The developer is not responsible for any negative consequences.</string>
+    <string name="root_onboarding_message">Root mode allows NetGuard to work using root privileges. Your device must be rooted. The developer is not responsible for any negative consequences.</string>
     <string name="get_started">Get Started</string>
     <string name="shizuku_service_dead">Shizuku service is dead</string>
     <string name="shizuku_update_required">Shizuku Update Required</string>
@@ -100,7 +91,6 @@
     <string name="shizuku_permission_required_message">Shizuku permission is required for this app to work. Please grant the permission in Shizuku settings.</string>
     <string name="permission_denied">Permission Denied</string>
     <string name="shizuku_permission_granted">Shizuku permission granted</string>
-    <string name="notification_permission_granted">Notification permission granted</string>
     <string name="shizuku_not_running_title">Shizuku not running</string>
     <string name="shizuku_not_running_message">Shizuku is not currently running. Start the Shizuku service (or install it) before enabling the firewall.</string>
     <string name="open_shizuku">Open Shizuku</string>
@@ -137,8 +127,6 @@
     <string name="hide_no_internet_apps_description">These apps cannot access the network anyway</string>
     <string name="use_dynamic_color">Use dynamic color</string>
     <string name="use_dynamic_color_description">Apply wallpaper colors to app theme</string>
-    <string name="use_amoled_black">Use AMOLED theme</string>
-    <string name="use_amoled_black_description">Pure black for OLED screens</string>
     <string name="skip_enable_confirmation_description">Don\'t ask when enabling firewall</string>
     <string name="skip_error_dialog">Skip error dialog</string>
     <string name="skip_error_dialog_description">Don\'t show warning on failure</string>
@@ -151,15 +139,14 @@
     <string name="working_mode_title">Working mode</string>
     <string name="working_mode_summary">Choose how Firewall commands are executed</string>
     <string name="working_mode_shizuku">Shizuku</string>
-    <string name="working_mode_ladb">LADB</string>
     <string name="working_mode_root">Root (su)</string>
-    <string name="root_not_found_message">Root not found, please allow ShizuWall for accessing root permissions.</string>
+    <string name="root_not_found_message">Root not found, please allow NetGuard for accessing root permissions.</string>
     <string name="app_monitor_service">New App Notifications</string>
     <string name="app_monitor_service_description">Show a notification when a new app is installed</string>
-    <string name="app_monitor_whitelist_dependency">In Whitelist mode this service is also what blocks newly installed apps. If new-app notifications, auto-firewall for new apps and the firewall status notification are all off, the service stops and new apps stay allowed until the firewall is turned off and on again, or until an automation app reports the install with the shizuwall.APP_INSTALLED broadcast.</string>
+    <string name="app_monitor_whitelist_dependency">In Whitelist mode this service is also what blocks newly installed apps. If new-app notifications, auto-firewall for new apps and the firewall status notification are all off, the service stops and new apps stay allowed until the firewall is turned off and on again, or until an automation app reports the install with the netguard.APP_INSTALLED broadcast.</string>
     <string name="auto_firewall_new_apps">Auto-Firewall New Apps</string>
     <string name="auto_firewall_new_apps_description">Automatically block newly installed apps (except in Whitelist mode)</string>
-    <string name="new_app_monitor_main_profile_only">New app detection covers the main profile only and needs the background app monitor service, which stays running while this option is on. Installs in a work profile, clone space or private space can still be reported with the shizuwall.APP_INSTALLED broadcast.</string>
+    <string name="new_app_monitor_main_profile_only">New app detection covers the main profile only and needs the background app monitor service, which stays running while this option is on. Installs in a work profile, clone space or private space can still be reported with the netguard.APP_INSTALLED broadcast.</string>
     <string name="firewall_status_notification">Firewall Status Notification</string>
     <string name="firewall_status_notification_description">Show a permanent notification with the current firewall status</string>
     <string name="firewall_status_notification_enabled_title">Firewall enabled</string>
@@ -174,12 +161,9 @@
     <string name="app_installed_notification_channel_name">New App Installed</string>
     <string name="app_installed_notification_channel_description">Notifications when a new app is installed</string>
     <string name="theme">Theme</string>
-    <string name="font">Font</string>
     <string name="language">Language</string>
     <string name="language_system_default">System default</string>
     <string name="adb_broadcast_usage_description">Quick guide to use adb to control firewall</string>
-    <string name="export_settings">Export settings</string>
-    <string name="import_settings">Import settings</string>
     <string name="support_developer_description">Support the developer</string>
     <string name="github">GitHub</string>
     <string name="github_description">View source code and contribute</string>
@@ -188,78 +172,9 @@
     <string name="double_tap_or_long_press">Double tap to select multiple apps, long press to unselect multiple apps</string>
     <string name="loading_apps">Loading apps</string>
 
-    <string name="shizuku_setup_guide">Shizuku Setup Guide</string>
-    <string name="shizuku_prompt_title">Show Shizuku setup guide?</string>
-    <string name="shizuku_prompt_message">Would you like to view the Shizuku setup slides now? You can always open them later from the three-dot menu in Settings.</string>
-    <string name="shizuku_prompt_do_not_show">Do not show again</string>
-    <string name="show_now">Show now</string>
-    <string name="open_ladb_setup">Open LADB setup</string>
-    <string name="working_mode_select_ladb_prompt">Select LADB mode first to configure LADB</string>
-    <string name="pair">Pair</string>
-    <string name="ladb_connect">Connect to Wireless Debugging</string>
-    <string name="ladb_unpair">Unpair</string>
-    <string name="ladb_auto_pairing_title">Automatic Pairing</string>
-    <string name="ladb_auto_pairing_description">Discover and pair with Wireless Debugging automatically over the network.</string>
-    <string name="ladb_manual_connection_title">Manual Connection</string>
-    <string name="ladb_manual_connection_description">Already paired? Enter a specific host and port to connect directly, useful when auto-discovery fails or the port keeps changing.</string>
-    <string name="manual_host_hint">Host (usually 127.0.0.1)</string>
-    <string name="manual_port_hint">Connect port</string>
-    <string name="btn_check_and_connect">Check &amp; Connect</string>
-    <string name="manual_connect_checking">Checking port…</string>
-    <string name="manual_connect_success">Connected using saved port.</string>
-    <string name="manual_connect_not_available">Nothing reachable on that host/port.</string>
-    <string name="manual_connect_needs_pairing">Port reachable but not paired yet. Use Pair below.</string>
-    <string name="manual_connect_invalid_port">Enter a valid port (1–65535).</string>
-    <string name="manual_connect_authorize">Port reachable. If a dialog appears on this device, tap Allow to authorize.</string>
-    <string name="manual_connect_authorize_timeout">Reachable, but not authorized in time. Accept the "Allow wireless debugging" prompt on this device, then tap Connect again.</string>
-    <string name="ladb_status_unconfigured">Not configured</string>
-    <string name="ladb_status_paired">Paired (not connected)</string>
-    <string name="ladb_status_connected">Ladb Connected to Wireless Debugging</string>
-    <string name="ladb_status_disconnected">Disconnected</string>
-    <string name="ladb_error_title">LADB error</string>
-    <string name="ladb_hint_connection_refused">Connection refused usually means Wireless debugging is OFF or you are using the wrong port. Use the port shown in Developer options → Wireless debugging → IP address &amp; port (not the pairing port). Also make sure ShizuWall is allowed in Wireless debugging.</string>
 
-    <string name="ladb_pairing_channel_name">LADB pairing</string>
-    <string name="ladb_pairing_notification_title">Enter pairing code</string>
-    <string name="ladb_pairing_notification_text">Tap and enter the pairing port and code shown in Wireless debugging → Pair device.</string>
-    <string name="ladb_pairing_notification_text_code_only">Tap and enter the pairing code shown in Wireless debugging → Pair device.</string>
 
-    <string name="ladb_pairing_details_hint_port_code">Enter: PORT CODE (e.g. 37133 123456)</string>
-    <string name="ladb_pairing_details_hint_code_only">Enter pairing code (e.g. 123456)</string>
-    <string name="ladb_enter_pairing_details_action">Send</string>
 
-    <string name="ladb_pairing_result_success_title">LADB paired</string>
-    <string name="ladb_pairing_result_success_text">Pairing succeeded. You can now connect.</string>
-    <string name="ladb_pairing_result_failed_title">LADB pairing failed</string>
-    <string name="ladb_pairing_result_failed_text">Open ShizuWall to see the error log.</string>
-    <string name="ladb_pairing_result_missing_code">Missing pairing code. Enter it from Wireless debugging → Pair device.</string>
-    <string name="ladb_pairing_result_missing_port">Missing pairing port. Enter: PORT CODE (from Wireless debugging → Pair device).</string>
-    <string name="ladb_notification_permission_required">Notification permission is required to show the pairing code prompt.</string>
-    <string name="set_ladb_title">LADB &amp; Daemon Setup</string>
-    <string name="set_ladb_summary">Pair LADB and install the persistent background daemon</string>
-    <string name="ladb_logs_title">Logs</string>
-    <string name="ladb_logs_empty">No logs yet. Perform LADB operations to see logs here.</string>
-    <string name="ladb_clear_logs">Clear Logs</string>
-    <string name="ladb_copy_logs">Copy Logs</string>
-    <string name="ladb_enable_logs">Enable Logs</string>
-    <string name="ladb_setup_guidance">This working mode uses a background helper Daemon to manage your firewall rules.\n\nQuick Start Guide:\n- Make sure you are connected to Wi-Fi\n- Enable \'Wireless Debugging and Usb debugging (to keep helper alive without Wi-Fi connection)\' in Developer Options\n- Tap the button below to start the helper\n\nFirst Time Setup:\nIf you haven\'t paired before, the button will open Developer Options. Go to \'Wireless Debugging\' -> \'Pair device with pairing code\'. A notification will appear—just enter the code there.\n\nImportant: Android stops the helper when you restart your phone. You\'ll need to tap the button again after every reboot to keep Daemon alive.\n\nImportant2: If you do not enable usb debugging, this working mode will only work when you have a Wi-Fi connection. Because if you disconnect from wi-fi it\'ll stop daemon and firewall cannot be enabled or disabled.</string>
-    <string name="advanced_mode">Advanced Mode</string>
-    <string name="advanced_mode_description">Show detailed LADB and Daemon configuration</string>
-    <string name="daemon_not_running">Daemon is not running. Please start it from the setup page.</string>
-    <string name="open_daemon_setup">Open Daemon Setup</string>
-    <string name="daemon_status_running">Daemon: Running</string>
-    <string name="daemon_status_stopped">Daemon: Stopped</string>
-    <string name="daemon_start">Start Daemon</string>
-    <string name="daemon_kill">Kill Daemon</string>
-    <string name="daemon_installing">Installing...</string>
-    <string name="ladb_daemon_restart_required_title">Restart LADB daemon</string>
-    <string name="ladb_daemon_restart_required_message">The firewall could not be enabled because the LADB daemon failed authorization or stopped responding. Open LADB setup, enable Advanced Mode, then use Kill Daemon and Start Daemon.</string>
-    <string name="ladb_daemon_restart_reason_prefix">Detected issues:</string>
-    <string name="ladb_daemon_restart_reason_auth">Daemon authorization failed. The daemon token in the app and the running daemon may be out of sync.</string>
-    <string name="ladb_daemon_restart_reason_unresponsive">Daemon is not responding or its socket is refusing connections.</string>
-    <string name="ladb_daemon_restart_reason_token">Daemon logs mention a token problem or a missing token file.</string>
-    <string name="ladb_daemon_restart_log_prefix">Recent daemon log:</string>
-    <string name="ladb_daemon_log_detected_hint">Recent daemon logs are available in Details.</string>
     <string name="sort">Sort</string>
     <string name="sort_name_asc">A-Z</string>
     <string name="sort_name_desc">Z-A</string>
@@ -267,14 +182,6 @@
     <string name="failed_to_update_rules_count">Failed to update rules for %d apps</string>
     <string name="failed_to_unblock_count">Failed to unblock %d apps</string>
     <string name="failed_to_unblock_app">Failed to unblock %s</string>
-    <string name="notification_permission_required_title">Notification Permission Required</string>
-    <string name="notification_permission_required_message">ShizuWall needs notification permission to show the pairing code notification.\n\nWithout this permission, you won\'t be able to enter the pairing code easily.</string>
-    <string name="cannot_continue">Cannot Continue</string>
-    <string name="notification_permission_required_ladb">Notification permission is required to use the LADB pairing feature. This permission allows us to show important pairing information.\n\nPlease grant notification permission to proceed.</string>
-    <string name="enter_pairing_code_hint">Enter pairing code from wireless debugging page into notification.</string>
-    <string name="waiting_for_pairing_discovery">Waiting for pairing service discovery...</string>
-    <string name="no_connection_config_found">No connection configuration found. Wait for auto-discovery or check wireless debugging.</string>
-    <string name="no_logs_to_copy">No logs to copy</string>
     <string name="version_format">Version %s</string>
     <string name="firewalling_app">Firewalling %s</string>
     <string name="added_to_selected_list">Added %s to selected list</string>
@@ -282,31 +189,8 @@
     <string name="error_format">Error: %s</string>
     <string name="firewall_reboot_message">Firewall should be enabled again after rebooting. Tap to open the app.</string>
     <string name="firewall_reboot_apply_failed_message">Failed to re-apply firewall rules after reboot. Tap to open the app.</string>
-    <string name="open_developer_settings">Open Developer Settings</string>
-    <string name="ladb_connection_failed_help">Connection failed. Please check:\n1. Wireless debugging is enabled in Developer options\n2. The device is on the same network\n3. No firewall is blocking the connection</string>
-    <string name="copy_logs_success">Logs copied to clipboard!</string>
     <string name="firewall_reboot_title">Firewall was active before reboot</string>
-    <string name="log_no_pairing_config">No pairing config found, waiting for auto-discovery...</string>
-    <string name="log_showing_pairing_notif">Showing pairing notification for config: %1$s:%2$d</string>
-    <string name="log_logging_enabled">Logging enabled</string>
-    <string name="log_daemon_already_running">Daemon is already running</string>
-    <string name="log_killing_daemon">Killing daemon via LADB...</string>
-    <string name="log_kill_success">Kill command sent successfully</string>
-    <string name="log_kill_failed">Kill command failed: %s</string>
-    <string name="log_starting_connection">Starting connection...</string>
-    <string name="log_no_connect_config">No connect config found, waiting for auto-discovery...</string>
-    <string name="log_connect_config_found">Connect config found via auto-discovery</string>
-    <string name="log_scanning_ports">No connect config, attempting to scan detected ports...</string>
-    <string name="log_no_connect_config_final">No connect config found</string>
-    <string name="log_connecting_to">Connecting to %1$s:%2$d</string>
-    <string name="log_connection_failed">Connection failed: %s</string>
-    <string name="log_connection_success">Connection successful</string>
-    <string name="log_daemon_running_skipping">Daemon is already running, skipping auto-start</string>
-    <string name="log_unpairing">Unpairing device...</string>
-    <string name="log_device_unpaired">Device unpaired</string>
-    <string name="log_logs_cleared">Logs cleared</string>
-    <string name="log_logs_copied">Logs copied to clipboard</string>
-    
+
     <string name="firewall_mode_title">Firewall Mode</string>
     <string name="firewall_mode_default">Default</string>
     <string name="firewall_mode_default_description">Traditional firewall - block selected apps</string>
@@ -319,9 +203,9 @@
     <string name="whitelist_info_system_apps_warning">When "Show system apps" is disabled, system apps will not be firewalled in Whitelist mode.\n\nIf you have enabled "Show system apps" and are using Whitelist mode, this combination has not been fully tested. Use with caution.\n\nApps installed into a work profile or cloned space while the firewall is on are not detected, and stay allowed until you turn the firewall off and on again.</string>
     <string name="firewall_mode_smart_foreground">Smart Foreground</string>
     <string name="firewall_mode_smart_foreground_description">Only allow the app currently in foreground</string>
-    
+
     <string name="firewall_mode_focus_tracker">Focus Tracker</string>
-    <string name="firewall_mode_focus_tracker_description">Enable firewall when ShizuWall is unfocused, and disable when focused.</string>
+    <string name="firewall_mode_focus_tracker_description">Enable firewall when NetGuard is unfocused, and disable when focused.</string>
 
     <string name="firewall_mode_details_button">How do these modes work?</string>
     <string name="firewall_mode_details_title">How firewall modes work</string>
@@ -330,9 +214,9 @@
     <string name="firewall_mode_whitelist_details">The selection is inverted: every app is blocked by default and only the apps you tick keep network access. Note that when "Show system apps" is off, system apps are not firewalled in this mode.</string>
     <string name="firewall_mode_screen_lock_details">The selected apps are blocked when the screen locks and unblocked when you unlock. You can set a delay so short screen-offs do not trigger blocking. A background service watches the lock state, so it keeps working after a reboot.</string>
     <string name="firewall_mode_smart_foreground_details">Only the app you are using right now keeps network access. Every other selected app stays blocked, and access switches over as soon as you move to another app. A background service checks the foreground app about once per second, so it must stay running and uses a little extra battery.</string>
-    <string name="firewall_mode_focus_tracker_details">The firewall follows ShizuWall itself: leaving or minimising ShizuWall turns the firewall on, opening it again turns the firewall off. Useful when you want the blocking to pause exactly while you are changing settings.</string>
+    <string name="firewall_mode_focus_tracker_details">The firewall follows NetGuard itself: leaving or minimising NetGuard turns the firewall on, opening it again turns the firewall off. Useful when you want the blocking to pause exactly while you are changing settings.</string>
     <string name="firewall_mode_hybrid_details">Each app gets its own mode instead of one rule for all. Per app you can pick Default Block (always blocked), Smart Foreground (allowed only while in use), or Screen Lock (blocked while the screen is locked). All of these rules run at the same time.</string>
-    <string name="firewall_mode_details_foreground_note">Smart Foreground, Hybrid and Focus Tracker need to detect the foreground app. This works through Shizuku, or through usage access, which ShizuWall grants itself via the privileged shell in LADB and Root modes.</string>
+    <string name="firewall_mode_details_foreground_note">Smart Foreground, Hybrid and Focus Tracker need to detect the foreground app. This works through Shizuku, or through usage access, which NetGuard grants itself via the privileged shell in Root modes.</string>
     <string name="firewall_mode_hybrid">Hybrid Mode</string>
     <string name="firewall_mode_hybrid_description">Configure mode individually per app</string>
     <string name="hybrid_mode_default_block">Default Block</string>
@@ -341,16 +225,13 @@
     <string name="smart_foreground_notification_channel_name">Smart Foreground (Service)</string>
     <string name="smart_foreground_notification_channel_description">Background service for monitoring foreground app</string>
     <string name="smart_foreground_active">Smart Foreground Active</string>
-    
+
     <string name="focus_tracker_active">Focus Tracker: Active</string>
     <string name="focus_tracker_paused">Focus Tracker: Inactive</string>
     <string name="smart_foreground_active_app">Active: %s</string>
     <string name="enable_firewall_dialog_title">Enable Firewall</string>
     <string name="enable_firewall_dialog_message">Do you want to enable firewall for %d apps listed below?</string>
     <string name="selected_apps_label">Selected Apps:</string>
-    <string name="prev">Prev</string>
-    <string name="do_not_show_again">Do not show again</string>
-    <string name="select_font">Select Font</string>
     <string name="apply">Apply</string>
 
     <string name="screen_lock_delay_title">Lock Delay</string>
@@ -448,12 +329,12 @@
     <string name="app_info_trackers_none">No known trackers found</string>
     <string name="app_info_trackers_count">%1$d trackers found</string>
     <string name="app_info_trackers_failed">This app could not be scanned</string>
-    <string name="app_info_trackers_note">Found by scanning the app\'s code. ShizuWall uses no VPN and never inspects traffic. These trackers are cut off while this app is blocked.</string>
+    <string name="app_info_trackers_note">Found by scanning the app\'s code. NetGuard uses no VPN and never inspects traffic. These trackers are cut off while this app is blocked.</string>
     <string name="tracker_db_description">%1$d tracker signatures, bundled with the app. Detection runs entirely offline.</string>
     <string name="tracker_data_attribution">Tracker data: Exodus Privacy, ODbL 1.0</string>
     <string name="show_other_profiles">Show apps in other profiles</string>
     <string name="main_profile">Main profile</string>
-    <string name="show_other_profiles_description">Work profile, private space, Secure Folder and cloned apps. When off, blocking an app also blocks all of its copies; check this to control each copy separately. Requires a running backend service (Root, Shizuku or LADB) with permissions granted.</string>
+    <string name="show_other_profiles_description">Work profile, private space, Secure Folder and cloned apps. When off, blocking an app also blocks all of its copies; check this to control each copy separately. Requires a running backend service (Root, Shizuku) with permissions granted.</string>
     <string name="show_other_profiles_uncheck_confirm">Any selected app from another profile will be unselected and reset to its default state. From now on, blocking an app will also block every copy of it in other profiles. Do you want to un-check it?</string>
 
     <string name="app_info_button_title">App info button</string>
@@ -471,34 +352,24 @@
     <string name="widget_theme_light">Light</string>
     <string name="widget_theme_dark">Dark</string>
     <string name="widget_theme_transparent">Transparent</string>
-    <string name="ladb_adb_method_title">Start with ADB (PC)</string>
-    <string name="ladb_adb_method_description">Connect the phone to a computer with USB debugging enabled, then run this command once.</string>
-    <string name="ladb_adb_command_label">Command</string>
-    <string name="ladb_adb_command_preparing">Preparing…</string>
-    <string name="ladb_copy_command">Copy command</string>
-    <string name="ladb_command_copied">Command copied</string>
-    <string name="ladb_share_command">Share command</string>
-    <string name="ladb_adb_method_steps">1. Enable USB debugging in Developer options\n2. Connect the phone to a computer and allow the prompt\n3. Paste the command into a terminal\n\nRun it again after every reboot.</string>
-    <string name="ladb_command_prepare_failed">Could not prepare the ADB command: %1$s</string>
     <string name="remember_deleted_apps">Remember deleted apps</string>
     <string name="remember_deleted_apps_description">Keep the block state of removed or disabled apps and restore it when they come back</string>
     <string name="foreground_detection_unavailable">Foreground detection unavailable</string>
-    <string name="foreground_detection_unavailable_message">ShizuWall could not reach the privileged helper that reports which app is in the foreground, so Smart Foreground, Hybrid and Focus Tracker cannot manage apps. Check that your working mode (Shizuku, LADB or Root) is set up and running.</string>
+    <string name="foreground_detection_unavailable_message">NetGuard could not reach the privileged helper that reports which app is in the foreground, so Smart Foreground, Hybrid and Focus Tracker cannot manage apps. Check that your working mode (Shizuku or Root) is set up and running.</string>
     <string name="empty_app_list_title">No apps to show</string>
     <string name="empty_app_list_message">Only user-installed apps are listed. Turn on system apps to see everything installed on this device.</string>
     <string name="empty_app_list_action">Show system apps</string>
     <string name="empty_app_list_search_title">No results</string>
     <string name="empty_app_list_search_message">No app matches your search.</string>
     <string name="backend_banner_title">Setup required</string>
-    <string name="backend_banner_message_shizuku">ShizuWall needs Shizuku running and permission granted before it can block any app.</string>
-    <string name="backend_banner_message_ladb">ShizuWall needs the local ADB daemon running before it can block any app. Pair with Wireless debugging to start it.</string>
-    <string name="backend_banner_message_root">ShizuWall needs root access before it can block any app.</string>
+    <string name="backend_banner_message_shizuku">NetGuard needs Shizuku running and permission granted before it can block any app.</string>
+    <string name="backend_banner_message_root">NetGuard needs root access before it can block any app.</string>
     <string name="backend_banner_action">Set up</string>
     <string name="app_unsupported_system_uid">Android does not allow per-app rules for system apps that share a system UID.</string>
     <string name="settings_category_security_title">Security</string>
     <string name="settings_category_security_desc">App lock, PIN and biometrics</string>
     <string name="app_lock_title">App lock</string>
-    <string name="app_lock_description">Require a PIN or biometrics to open ShizuWall</string>
+    <string name="app_lock_description">Require a PIN or biometrics to open NetGuard</string>
     <string name="app_lock_use_biometrics">Use biometrics</string>
     <string name="app_lock_use_biometrics_description">Unlock with a fingerprint or face instead of typing the PIN</string>
     <string name="app_lock_change_pin">Change PIN</string>
@@ -508,27 +379,20 @@
     <string name="app_lock_pin_mismatch">PINs don\'t match</string>
     <string name="app_lock_pin_length_required">Enter %1$d digits</string>
     <string name="app_lock_pin_length">PIN length</string>
-    <string name="app_lock_pin_not_recoverable">Your PIN can’t be recovered. If you forget it, the only way back in is to clear ShizuWall’s app data, which deletes all settings and profiles.</string>
-    <string name="app_lock_scope_warning">This lock only stops someone from opening ShizuWall. The firewall rules live in Android, so they can still be changed from macro apps, ADB broadcasts, the Quick Settings tile or the home screen widget.</string>
+    <string name="app_lock_pin_not_recoverable">Your PIN can’t be recovered. If you forget it, the only way back in is to clear NetGuard’s app data, which deletes all settings and profiles.</string>
+    <string name="app_lock_scope_warning">This lock only stops someone from opening NetGuard. The firewall rules live in Android, so they can still be changed from macro apps, ADB broadcasts, the Quick Settings tile or the home screen widget.</string>
     <string name="app_lock_biometric_offer_title">Use biometrics to unlock?</string>
-    <string name="app_lock_biometric_offer_message">If you turn this on, anyone who can unlock this device with their fingerprint or face can also open ShizuWall and change the firewall. Keep it off if the device is shared and only you should control the firewall.</string>
+    <string name="app_lock_biometric_offer_message">If you turn this on, anyone who can unlock this device with their fingerprint or face can also open NetGuard and change the firewall. Keep it off if the device is shared and only you should control the firewall.</string>
     <string name="app_lock_biometric_offer_enable">Use biometrics</string>
     <string name="app_lock_biometric_offer_pin_only">PIN only</string>
     <string name="app_lock_wrong_pin">Wrong PIN</string>
     <string name="app_lock_locked_out">Too many attempts. Try again in %1$d s</string>
-    <string name="app_lock_biometric_title">Unlock ShizuWall</string>
+    <string name="app_lock_biometric_title">Unlock NetGuard</string>
     <string name="app_lock_use_pin">Use PIN</string>
     <string name="app_lock_pin_saved">PIN saved</string>
     <string name="app_lock_delete">Delete</string>
     <string name="app_lock_submit">Confirm</string>
-    <string name="contact_developer_email" translatable="false">ahmetcanarslandev@gmail.com</string>
-    <string name="contact_developer_subject" translatable="false">"ShizuWall - "</string>
-    <string name="contact_developer">Contact Developer</string>
-    <string name="contact_developer_description">Send feedback or report a problem</string>
-    <string name="contact_developer_no_app">No email app found</string>
     <string name="changelog_title">What\'s new in %1$s</string>
     <string name="changelog_message">• New appearance options: hide apps with a shared system UID and apps without internet permission</string>
-    <string name="whats_new">What\'s new</string>
-    <string name="whats_new_description">See the changes in this version</string>
     <string name="dismiss">Dismiss</string>
 </resources>

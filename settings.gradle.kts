@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ShizuWall"
+rootProject.name = "NetGuard"
 include(":app")

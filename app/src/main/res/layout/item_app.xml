@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:baselineAligned="false"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
             android:paddingTop="14dp"
@@ -27,13 +28,14 @@
             <FrameLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="-5dp">
 
                 <ImageView
                     android:id="@+id/appIcon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_gravity="bottom|start"
+                    android:layout_gravity="center_vertical|start"
                     android:layout_marginStart="5dp"
                     android:importantForAccessibility="no"
                     android:scaleType="fitCenter" />

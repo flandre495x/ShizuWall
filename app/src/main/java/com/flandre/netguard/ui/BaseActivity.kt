@@ -1,0 +1,165 @@
+package com.flandre.netguard.ui
+
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.graphics.ColorUtils
+import com.flandre.netguard.R
+import com.flandre.netguard.security.AppLock
+import com.google.android.material.appbar.MaterialToolbar
+import com.google.android.material.color.DynamicColors
+import com.google.android.material.color.MaterialColors
+
+open class BaseActivity : AppCompatActivity() {
+    protected open val bypassAppLock = false
+    private var currentDynamicColor: Boolean = true
+
+    companion object {
+        private var shouldAnimateFadeIn = false
+
+        fun requestFadeInAnimation() {
+            shouldAnimateFadeIn = true
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        if (shouldAnimateFadeIn) {
+            if (android.os.Build.VERSION.SDK_INT >= 34) {
+                overrideActivityTransition(OVERRIDE_TRANSITION_OPEN, 0, 0)
+            } else {
+                @Suppress("DEPRECATION")
+                overridePendingTransition(0, 0)
+            }
+        }
+        
+        val prefs = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        currentDynamicColor = prefs.getBoolean(MainActivity.KEY_USE_DYNAMIC_COLOR, true)
+        setTheme(R.style.Theme_NetGuard)
+        
+        super.onCreate(savedInstanceState)
+
+        if (currentDynamicColor) {
+            DynamicColors.applyToActivityIfAvailable(this)
+        }
+
+        applyRecentsPrivacy()
+
+        applyRecentsAppearance()
+    }
+
+    protected fun setupSettingsChrome(rootId: Int, toolbar: MaterialToolbar) {
+        val root = findViewById<View>(rootId)
+        toolbar.setNavigationOnClickListener { finish() }
+        ViewCompat.setOnApplyWindowInsetsListener(root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            (toolbar.layoutParams as ViewGroup.MarginLayoutParams).topMargin = systemBars.top
+            toolbar.requestLayout()
+            view.setPadding(view.paddingLeft, view.paddingTop, view.paddingRight, systemBars.bottom)
+            insets
+        }
+    }
+
+    protected fun makeCardClickableForSwitch(switch: SwitchCompat) {
+        val parent = switch.parent as? View ?: return
+        val typedValue = android.util.TypedValue()
+        if (theme.resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true)) {
+            parent.setBackgroundResource(typedValue.resourceId)
+        }
+        parent.isClickable = true
+        parent.isFocusable = true
+        parent.setOnClickListener { if (switch.isEnabled) switch.toggle() }
+    }
+
+    private fun applyRecentsPrivacy() {
+        if (android.os.Build.VERSION.SDK_INT >= 33) {
+            setRecentsScreenshotEnabled(!AppLock.isEnabled(this))
+        }
+    }
+
+    private fun applyRecentsAppearance() {
+        val surface = MaterialColors.getColor(
+            this,
+            com.google.android.material.R.attr.colorSurface,
+            Color.BLACK
+        )
+        val opaque = ColorUtils.setAlphaComponent(surface, 255)
+        val description = if (android.os.Build.VERSION.SDK_INT >= 33) {
+            ActivityManager.TaskDescription.Builder()
+                .setBackgroundColor(opaque)
+                .setStatusBarColor(opaque)
+                .setNavigationBarColor(opaque)
+                .build()
+        } else {
+            @Suppress("DEPRECATION")
+            ActivityManager.TaskDescription(null, null as Bitmap?, opaque)
+        }
+        setTaskDescription(description)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        applyRecentsPrivacy()
+        AppLock.onActivityStarted()
+        if (!bypassAppLock && AppLock.requiresUnlock(this)) {
+            startActivity(
+                Intent(this, AppLockActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            )
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        AppLock.onActivityStopped(isChangingConfigurations)
+    }
+
+    override fun onContentChanged() {
+        super.onContentChanged()
+        if (shouldAnimateFadeIn) {
+            shouldAnimateFadeIn = false
+            val rootView = findViewById<View>(android.R.id.content)
+            rootView.alpha = 0f
+            rootView.animate()
+                .alpha(1f)
+                .setDuration(350)
+                .setStartDelay(50)
+                .start()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val prefs = getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        val savedDynamicColor = prefs.getBoolean(MainActivity.KEY_USE_DYNAMIC_COLOR, true)
+
+        if (savedDynamicColor != currentDynamicColor) {
+            recreateWithAnimation()
+        }
+    }
+
+    protected fun recreateWithAnimation() {
+        val rootView = findViewById<View>(android.R.id.content)
+        if (rootView != null) {
+            rootView.animate()
+                .alpha(0f)
+                .setDuration(400)
+                .withEndAction {
+                    shouldAnimateFadeIn = true
+                    AppLock.suppressNextRelock()
+                    recreate()
+                }
+                .start()
+        } else {
+            recreate()
+        }
+    }
+}

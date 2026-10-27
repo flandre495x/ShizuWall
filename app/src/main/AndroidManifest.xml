@@ -8,28 +8,22 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <!-- Network permissions required for remote ADB (LADB) -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-    
+
     <application
-        android:name=".ShizuWallApp"
+        android:name=".NetGuardApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appLabel}"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShizuWall"
+        android:theme="@style/Theme.NetGuard"
         android:localeConfig="@xml/locales_config"
         tools:targetApi="31">
         <activity android:name=".ui.OnboardingActivity" />
-        <activity android:name=".shizuku.ShizukuSetupActivity" />
-        <activity android:name=".LadbSetupActivity" />
         <activity
             android:name=".ui.SettingsActivity"
             android:label="Settings"
@@ -81,8 +75,7 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.INTERACT_ACROSS_USERS_FULL"
-            android:icon="@mipmap/ic_launcher"
-            android:roundIcon="@mipmap/ic_launcher_round" />
+            android:icon="@mipmap/ic_launcher" />
 
         <!-- Boot receiver: when device reboots, check saved firewall state and notify user to re-enable if needed -->
         <receiver
@@ -99,7 +92,7 @@
             android:name=".receivers.FirewallControlReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="shizuwall.CONTROL" />
+                <action android:name="netguard.CONTROL" />
             </intent-filter>
         </receiver>
 
@@ -107,7 +100,7 @@
             android:name=".receivers.ProfileControlReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="shizuwall.PROFILE" />
+                <action android:name="netguard.PROFILE" />
             </intent-filter>
         </receiver>
 
@@ -118,18 +111,10 @@
             android:foregroundServiceType="specialUse" />
 
         <receiver
-            android:name=".receivers.LadbPairingCodeReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.arslan.shizuwall.ACTION_LADB_PAIRING_CODE" />
-            </intent-filter>
-        </receiver>
-
-        <receiver
             android:name=".receivers.AppInstalledReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="shizuwall.APP_INSTALLED" />
+                <action android:name="netguard.APP_INSTALLED" />
             </intent-filter>
         </receiver>
 
@@ -245,7 +230,7 @@
             android:label="@string/widget_firewall_label">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.arslan.shizuwall.ACTION_FIREWALL_STATE_CHANGED" />
+                <action android:name="com.flandre.netguard.ACTION_FIREWALL_STATE_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -258,7 +243,7 @@
             android:label="@string/widget_profile_label">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.arslan.shizuwall.ACTION_FIREWALL_STATE_CHANGED" />
+                <action android:name="com.flandre.netguard.ACTION_FIREWALL_STATE_CHANGED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
@@ -269,7 +254,7 @@
             android:name=".ui.ProfileWidgetConfigActivity"
             android:exported="true"
             android:label="@string/widget_profile_label"
-            android:theme="@style/Theme.ShizuWall">
+            android:theme="@style/Theme.NetGuard">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -279,7 +264,7 @@
             android:name=".ui.FirewallWidgetConfigActivity"
             android:exported="true"
             android:label="@string/widget_firewall_label"
-            android:theme="@style/Theme.ShizuWall">
+            android:theme="@style/Theme.NetGuard">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>

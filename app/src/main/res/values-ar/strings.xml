@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">ShizuWall</string>
+    <string name="app_name">NetGuard</string>
     <string name="settings_category_appearance_title">المظهر</string>
-    <string name="settings_category_appearance_desc">السمة، الألوان، الخط، اللغة</string>
+    <string name="settings_category_appearance_desc">السمة، الألوان، اللغة</string>
     <string name="settings_category_firewall_title">سلوك جدار الحماية</string>
     <string name="settings_category_firewall_desc">الأوضاع، التأكيدات، معالجة الأخطاء</string>
     <string name="settings_category_backend_title">الخلفية ووضع التشغيل</string>
-    <string name="settings_category_backend_desc">Shizuku، LADB، الروت</string>
+    <string name="settings_category_backend_desc">Shizuku / Root</string>
     <string name="settings_category_notifications_title">الإشعارات والزر العائم</string>
     <string name="settings_category_notifications_desc">المراقبة، التنبيهات، الزر العائم</string>
     <string name="github_url">https://github.com/ahmetcanarslan/shizuwall</string>
@@ -23,27 +23,20 @@
     <string name="cat_unselected">غير المحدد</string>
     <string name="cat_user">المستخدم</string>
     <string name="enable_firewall">جدار ناري</string>
-    <string name="font_default">الافتراضي</string>
-    <string name="font_ndot">Ndot</string>
     <string name="select_all">تحديد عدة تطبيقات</string>
     <string name="cat_favorites">المفضلة</string>
     <string name="made_by">صنع بـ ❤️ بواسطة Ahmet Can Arslan</string>
     <string name="reset_app_menu">إعادة تعيين التطبيق</string>
-    <string name="later">لاحقاً</string>
-    <string name="export_successful">نجح التصدير</string>
-    <string name="export_failed">فشل التصدير: %s</string>
-    <string name="import_successful">نجح الاستيراد. يرجى إعادة تشغيل التطبيق.</string>
-    <string name="import_failed">فشل الاستيراد: %s</string>
     <string name="exit_confirm_message">اضغط على زر الرجوع مرة أخرى للخروج</string>
     <string name="reset_app_title">إعادة تعيين التطبيق</string>
     <string name="reset_app_message">هل أنت متأكد أنك تريد إعادة تعيين التطبيق؟ سيتم إيقاف الجدار الناري (إذا كان مفعلًا)، ومسح جميع البيانات، وإغلاق التطبيق.</string>
     <string name="reset">إعادة تعيين</string>
     <string name="cancel">إلغاء</string>
     <string name="android11_unsupported_title">توافق أندرويد 11</string>
-    <string name="android11_unsupported_message">بعض الأجهزة التي تعمل بنظام أندرويد 11 لا تدعم ShizuWall. إذا رأيت خطأ مثل:\n - no command found set chain3 - \nفهذا يعني أن جهازك غير مدعوم ولا يوجد شيء يمكن القيام به في الوقت الحالي.</string>
+    <string name="android11_unsupported_message">بعض الأجهزة التي تعمل بنظام أندرويد 11 لا تدعم NetGuard. إذا رأيت خطأ مثل:\n - no command found set chain3 - \nفهذا يعني أن جهازك غير مدعوم ولا يوجد شيء يمكن القيام به في الوقت الحالي.</string>
     <string name="dont_show_again">عدم الإظهار مرة أخرى</string>
     <string name="device_unsupported_title">الجهاز غير مدعوم</string>
-    <string name="device_unsupported_message">إصدار أندرويد لديك لا يوفّر سلسلة جدار حماية الاتصال التي يعتمد عليها ShizuWall. هذا شائع في أندرويد 11–12 وفي بعض واجهات الشركات المصنّعة مثل MIUI/HyperOS. النظام نفسه يرفض الأمر، لذا لن يفيد التبديل بين Shizuku وLADB والروت.</string>
+    <string name="device_unsupported_message">إصدار أندرويد لديك لا يوفّر سلسلة جدار حماية الاتصال التي يعتمد عليها NetGuard. هذا شائع في أندرويد 11–12 وفي بعض واجهات الشركات المصنّعة مثل MIUI/HyperOS. النظام نفسه يرفض الأمر، لذا لن يفيد التبديل بين Shizuku والروت.</string>
     <string name="firewall_cleanup_warning">تحذير: فشل تنظيف الجدار الناري. يرجى إعادة تشغيل جهازك لاستعادة الوصول إلى الإنترنت.</string>
     <string name="app_reset_complete">اكتمل إعادة تعيين التطبيق. جاري الإغلاق…</string>
     <string name="reset_app_failed">فشل إعادة تعيين التطبيق: %s</string>
@@ -65,13 +58,13 @@
     <string name="adb_broadcast_dev_disable_framework">تعطيل إطار عمل الجدار الناري</string>
     <string name="adb_broadcast_extras_summary" formatted="false">%1$s (boolean): true = تفعيل، false = تعطيل
 
-%2$s (string، اختياري): قائمة حزم مفصولة بفاصلة. إذا تم تجاهلها، يستخدم التطبيق الحزم المحددة المحفوظة في ShizuWall.</string>
+%2$s (string، اختياري): قائمة حزم مفصولة بفاصلة. إذا تم تجاهلها، يستخدم التطبيق الحزم المحددة المحفوظة في NetGuard.</string>
     <string name="ok">موافق</string>
     <string name="no_apps_selected">لا توجد تطبيقات محددة</string>
     <string name="shizuku_not_running">Shizuku لا يعمل</string>
     <string name="shizuku_permission_required">إذن Shizuku مطلوب</string>
     <string name="firewall">جدار ناري</string>
-    <string name="welcome_title">مرحبًا بك في ShizuWall</string>
+    <string name="welcome_title">مرحبًا بك في NetGuard</string>
     <string name="welcome_message">منع اتصالات الشبكة غير المرغوب فيها بدون روت أو VPN</string>
     <string name="next">التالي</string>
     <string name="notification_permission_title">إذن الإشعارات</string>
@@ -84,12 +77,10 @@
     <string name="shizuku_required_title">وضع Shizuku</string>
     <string name="shizuku_required_message">المطور غير مسؤول عن أي عواقب سلبية. يرجى تثبيت وتفعيل Shizuku قبل المتابعة.</string>
     <string name="onboarding_mode_selection_title">اختر وضع العمل</string>
-    <string name="onboarding_mode_selection_message">يمكن لـ ShizuWall العمل في ثلاثة أوضاع. يوصى باستخدام Shizuku لمعظم المستخدمين. إذا كان جهازك لا يدعم Shizuku، فيمكنك اختيار وضع LADB أو وضع Root. يمكن تغيير وضع العمل لاحقًا.</string>
+    <string name="onboarding_mode_selection_message">يدعم NetGuard وضعي Shizuku (موصى به) وRoot. يمكنك تغيير الوضع لاحقًا.</string>
     <string name="use_shizuku">استخدام Shizuku</string>
-    <string name="use_ladb">استخدام LADB</string>
     <string name="use_root">استخدام Root</string>
-    <string name="ladb_onboarding_message">يسمح وضع LADB لـ ShizuWall بالعمل باستخدام برنامج خادم ADB محلي. ستحتاج إلى الاقتران مع تصحيح أخطاء اللاسلكي مرة واحدة في صفحة إعداد LADB الموجودة في الإعدادات. المطور غير مسؤول عن أي عواقب سلبية.</string>
-    <string name="root_onboarding_message">يسمح وضع Root لـ ShizuWall بالعمل باستخدام صلاحيات root. يجب أن يكون جهازك به root. المطور غير مسؤول عن أي عواقب سلبية.</string>
+    <string name="root_onboarding_message">يسمح وضع Root لـ NetGuard بالعمل باستخدام صلاحيات root. يجب أن يكون جهازك به root. المطور غير مسؤول عن أي عواقب سلبية.</string>
     <string name="get_started">ابدأ الآن</string>
     <string name="shizuku_service_dead">خدمة Shizuku متوقفة</string>
     <string name="shizuku_update_required">تحديث Shizuku مطلوب</string>
@@ -98,7 +89,6 @@
     <string name="shizuku_permission_required_message">إذن Shizuku مطلوب ليعمل هذا التطبيق. يرجى منح الإذن في إعدادات Shizuku.</string>
     <string name="permission_denied">تم رفض الإذن</string>
     <string name="shizuku_permission_granted">تم منح إذن Shizuku</string>
-    <string name="notification_permission_granted">تم منح إذن الإشعارات</string>
     <string name="shizuku_not_running_title">Shizuku لا يعمل</string>
     <string name="shizuku_not_running_message">Shizuku لا يعمل حاليًا. ابدأ خدمة Shizuku (أو قم بتثبيتها) قبل تفعيل الجدار الناري.</string>
     <string name="open_shizuku">فتح Shizuku</string>
@@ -134,8 +124,6 @@
     <string name="hide_no_internet_apps_description">لا تستطيع هذه التطبيقات الوصول إلى الشبكة أصلاً</string>
     <string name="use_dynamic_color">استخدام ألوان ديناميكية</string>
     <string name="use_dynamic_color_description">تطبيق ألوان خلفية الشاشة على مظهر التطبيق</string>
-    <string name="use_amoled_black">استخدام سمة AMOLED</string>
-    <string name="use_amoled_black_description">أسود نقي لشاشات OLED</string>
     <string name="skip_enable_confirmation_description">لا تسأل عند تفعيل الجدار الناري</string>
     <string name="skip_error_dialog">تخطي حوار الخطأ</string>
     <string name="skip_error_dialog_description">عدم إظهار تحذير عند الفشل</string>
@@ -146,13 +134,12 @@
     <string name="working_mode_title">وضع العمل</string>
     <string name="working_mode_summary">اختر كيفية تنفيذ أوامر الجدار الناري</string>
     <string name="working_mode_shizuku">Shizuku</string>
-    <string name="working_mode_ladb">LADB</string>
     <string name="app_monitor_service">إشعارات التطبيقات الجديدة</string>
     <string name="app_monitor_service_description">إظهار إشعار عند تثبيت تطبيق جديد</string>
-    <string name="app_monitor_whitelist_dependency">في وضع القائمة البيضاء، هذه الخدمة هي أيضًا ما يحظر التطبيقات المثبَّتة حديثًا. إذا كانت إشعارات التطبيقات الجديدة والحظر التلقائي للتطبيقات الجديدة وإشعار حالة الجدار الناري كلها متوقفة، فستتوقف الخدمة وتبقى التطبيقات الجديدة مسموحة حتى يتم إيقاف الجدار الناري وتشغيله مجددًا، أو حتى يُبلغ تطبيق أتمتة عن التثبيت عبر بث shizuwall.APP_INSTALLED.</string>
+    <string name="app_monitor_whitelist_dependency">في وضع القائمة البيضاء، هذه الخدمة هي أيضًا ما يحظر التطبيقات المثبَّتة حديثًا. إذا كانت إشعارات التطبيقات الجديدة والحظر التلقائي للتطبيقات الجديدة وإشعار حالة الجدار الناري كلها متوقفة، فستتوقف الخدمة وتبقى التطبيقات الجديدة مسموحة حتى يتم إيقاف الجدار الناري وتشغيله مجددًا، أو حتى يُبلغ تطبيق أتمتة عن التثبيت عبر بث netguard.APP_INSTALLED.</string>
     <string name="auto_firewall_new_apps">حظر التطبيقات الجديدة تلقائيًا</string>
     <string name="auto_firewall_new_apps_description">حظر التطبيقات المثبتة حديثًا تلقائيًا (إلا في وضع القائمة البيضاء)</string>
-    <string name="new_app_monitor_main_profile_only">يقتصر اكتشاف التطبيقات الجديدة على الملف الشخصي الرئيسي ويحتاج إلى خدمة المراقبة في الخلفية، التي تظل تعمل طالما كان هذا الخيار مفعّلاً. ما زال بالإمكان الإبلاغ عن عمليات التثبيت في ملف العمل أو المساحة المستنسخة أو المساحة الخاصة عبر بث shizuwall.APP_INSTALLED.</string>
+    <string name="new_app_monitor_main_profile_only">يقتصر اكتشاف التطبيقات الجديدة على الملف الشخصي الرئيسي ويحتاج إلى خدمة المراقبة في الخلفية، التي تظل تعمل طالما كان هذا الخيار مفعّلاً. ما زال بالإمكان الإبلاغ عن عمليات التثبيت في ملف العمل أو المساحة المستنسخة أو المساحة الخاصة عبر بث netguard.APP_INSTALLED.</string>
     <string name="firewall_status_notification">إشعار حالة الجدار الناري</string>
     <string name="firewall_status_notification_description">إظهار إشعار دائم بحالة الجدار الناري الحالية</string>
     <string name="firewall_status_notification_enabled_title">الجدار الناري مُفعّل</string>
@@ -167,12 +154,9 @@
     <string name="app_installed_notification_channel_name">تم تثبيت تطبيق جديد</string>
     <string name="app_installed_notification_channel_description">إشعارات عند تثبيت تطبيق جديد</string>
     <string name="theme">السمة</string>
-    <string name="font">الخط</string>
     <string name="language">اللغة</string>
     <string name="language_system_default">افتراضي النظام</string>
     <string name="adb_broadcast_usage_description">دليل سريع لاستخدام adb للتحكم في الجدار الناري</string>
-    <string name="export_settings">تصدير الإعدادات</string>
-    <string name="import_settings">استيراد الإعدادات</string>
     <string name="support_developer_description">دعم المطور</string>
     <string name="github">GitHub</string>
     <string name="github_description">عرض الكود المصدري والمساهمة</string>
@@ -180,70 +164,9 @@
     <string name="selected_count_zero">0</string>
     <string name="loading_apps">جاري تحميل التطبيقات</string>
 
-    <string name="shizuku_setup_guide">دليل إعداد Shizuku</string>
-    <string name="shizuku_prompt_title">هل تريد عرض دليل إعداد Shizuku؟</string>
-    <string name="shizuku_prompt_message">هل تود عرض شرائح إعداد Shizuku الآن؟ يمكنك دائمًا فتحها لاحقًا من القائمة ذات الثلاث نقاط في الإعدادات.</string>
-    <string name="shizuku_prompt_do_not_show">عدم الإظهار مرة أخرى</string>
-    <string name="show_now">إظهار الآن</string>
-    <string name="open_ladb_setup">فتح إعداد LADB</string>
-    <string name="working_mode_select_ladb_prompt">اختر وضع LADB أولاً لتكوين LADB</string>
-    <string name="pair">إقران</string>
-    <string name="ladb_connect">الاتصال بتصحيح أخطاء اللاسلكي</string>
-    <string name="ladb_unpair">إلغاء الإقران</string>
-    <string name="ladb_auto_pairing_title">الإقران التلقائي</string>
-    <string name="ladb_auto_pairing_description">اكتشف الجهاز واقترن بتصحيح الأخطاء اللاسلكي تلقائيًا عبر الشبكة.</string>
-    <string name="ladb_manual_connection_title">اتصال يدوي</string>
-    <string name="ladb_manual_connection_description">مقترن مسبقًا؟ أدخل مضيفًا ومنفذًا محددين للاتصال مباشرة، مفيد عند فشل الاكتشاف التلقائي أو تغيّر المنفذ باستمرار.</string>
-    <string name="manual_host_hint">Host (usually 127.0.0.1)</string>
-    <string name="manual_port_hint">Connect port</string>
-    <string name="btn_check_and_connect">Check &amp; Connect</string>
-    <string name="manual_connect_checking">Checking port…</string>
-    <string name="manual_connect_success">Connected using saved port.</string>
-    <string name="manual_connect_not_available">Nothing reachable on that host/port.</string>
-    <string name="manual_connect_needs_pairing">Port reachable but not paired yet. Use Pair below.</string>
-    <string name="manual_connect_invalid_port">Enter a valid port (1–65535).</string>
-    <string name="manual_connect_authorize">المنفذ متاح. إذا ظهر مربع حوار على هذا الجهاز، فانقر على السماح للمصادقة.</string>
-    <string name="manual_connect_authorize_timeout">متاح، لكن لم تتم المصادقة في الوقت المناسب. اقبل طلب \"السماح بتصحيح أخطاء الشبكة اللاسلكية\" على هذا الجهاز، ثم انقر على اتصال مرة أخرى.</string>
-    <string name="ladb_status_unconfigured">غير مهيأ</string>
-    <string name="ladb_status_paired">تم الإقران (غير متصل)</string>
-    <string name="ladb_status_connected">تم توصيل LADB بتصحيح أخطاء اللاسلكي</string>
-    <string name="ladb_status_disconnected">تم قطع الاتصال</string>
-    <string name="ladb_error_title">خطأ LADB</string>
-    <string name="ladb_hint_connection_refused">رفض الاتصال يعني عادةً أن تصحيح أخطاء اللاسلكي متوقف أو أنك تستخدم منفذًا خاطئًا. استخدم المنفذ الموضح في خيارات المطور ← تصحيح أخطاء اللاسلكي ← عنوان IP والمنفذ (وليس منفذ الإقران). تأكد أيضًا من السماح لـ ShizuWall في تصحيح أخطاء اللاسلكي.</string>
 
-    <string name="ladb_pairing_channel_name">إقران LADB</string>
-    <string name="ladb_pairing_notification_title">أدخل رمز الإقران</string>
-    <string name="ladb_pairing_notification_text">اضغط وأدخل منفذ الإقران والرمز الموضح في تصحيح أخطاء اللاسلكي ← إقران الجهاز.</string>
-    <string name="ladb_pairing_notification_text_code_only">اضغط وأدخل رمز الإقران الموضح في تصحيح أخطاء اللاسلكي ← إقران الجهاز.</string>
 
-    <string name="ladb_pairing_details_hint_port_code">أدخل: PORT CODE (مثل 37133 123456)</string>
-    <string name="ladb_pairing_details_hint_code_only">أدخل رمز الإقران (مثل 123456)</string>
-    <string name="ladb_enter_pairing_details_action">إرسال</string>
 
-    <string name="ladb_pairing_result_success_title">تم إقران LADB</string>
-    <string name="ladb_pairing_result_success_text">نجح الإقران. يمكنك الاتصال الآن.</string>
-    <string name="ladb_pairing_result_failed_title">فشل إقران LADB</string>
-    <string name="ladb_pairing_result_failed_text">افتح ShizuWall لمشاهدة سجل الأخطاء.</string>
-    <string name="ladb_pairing_result_missing_code">رمز الإقران مفقود. أدخله من تصحيح أخطاء اللاسلكي ← إقران الجهاز.</string>
-    <string name="ladb_pairing_result_missing_port">منفذ الإقران مفقود. أدخل: المنفذ الرمز (من تصحيح أخطاء اللاسلكي ← إقران الجهاز).</string>
-    <string name="ladb_notification_permission_required">إذن الإشعارات مطلوب لإظهار حوار رمز الإقران.</string>
-    <string name="set_ladb_title">إعداد LADB والخدمة</string>
-    <string name="set_ladb_summary">إقران LADB وتثبيت خدمة الخلفية الدائمة</string>
-    <string name="ladb_logs_title">السجلات</string>
-    <string name="ladb_logs_empty">لا توجد سجلات بعد. قم بعمليات LADB لمشاهدة السجلات هنا.</string>
-    <string name="ladb_clear_logs">مسح السجلات</string>
-    <string name="ladb_copy_logs">نسخ السجلات</string>
-    <string name="ladb_enable_logs">تفعيل السجلات</string>
-    <string name="ladb_setup_guidance">يعتمد وضع العمل هذا على خدمة خلفية مساعدة لإدارة قواعد الجدار الناري الخاصة بك.\n\nدليل البدء السريع:\n- تأكد من أنك متصل بشبكة Wi-Fi\n- قم بتفعيل "تصحيح أخطاء اللاسلكي وتصحيح أخطاء USB (لإبقاء المساعد يعمل بدون اتصال Wi-Fi)" في خيارات المطور\n- اضغط على الزر أدناه لبدء المساعد\n\nيُعد الإعداد لأول مرة:\nإذا لم تقم بالإقران من قبل، فسيقوم الزر بفتح خيارات المطور. اذهب إلى "تصحيح أخطاء اللاسلكي" -> "إقران الجهاز باستخدام رمز إقران". سيظهر إشعار — فقط أدخل الرمز هناك.\n\nهام: يقوم نظام أندرويد بإيقاف المساعد عند إعادة تشغيل هاتفك. ستحتاج إلى الضغط على الزر مرة أخرى بعد كل إعادة تشغيل لإبقاء المساعد يعمل.\n\nهام 2: إذا لم تقم بتفعيل تصحيح أخطاء USB، فإن وضع العمل هذا سيعمل فقط عندما يكون لديك اتصال Wi-Fi. لأنه إذا قمت بقطع الاتصال بالـ Wi-Fi، فسيتم إيقاف المساعد ولا يمكن تفعيل الجدار الناري أو تعطيله.</string>
-    <string name="advanced_mode">الوضع المتقدم</string>
-    <string name="advanced_mode_description">إظهار تكوين LADB والخدمة بالتفصيل</string>
-    <string name="daemon_not_running">الخدمة لا تعمل. يرجى بدؤها من صفحة الإعداد.</string>
-    <string name="open_daemon_setup">فتح إعداد الخدمة</string>
-    <string name="daemon_status_running">الخدمة: تعمل</string>
-    <string name="daemon_status_stopped">الخدمة: متوقفة</string>
-    <string name="daemon_start">بدء الخدمة</string>
-    <string name="daemon_kill">إيقاف الخدمة</string>
-    <string name="daemon_installing">جاري التثبيت...</string>
     <string name="sort">ترتيب</string>
     <string name="sort_name_asc">من أ إلى ي</string>
     <string name="sort_name_desc">من ي إلى أ</string>
@@ -251,45 +174,14 @@
     <string name="failed_to_update_rules_count">فشل تحديث القواعد لـ %d تطبيقات</string>
     <string name="failed_to_unblock_count">فشل إلغاء الحظر لـ %d تطبيقات</string>
         <string name="failed_to_unblock_app">فشل إلغاء حظر %s</string>
-    <string name="notification_permission_required_title">إذن الإشعارات مطلوب</string>
-    <string name="notification_permission_required_message">يحتاج ShizuWall إلى إذن الإشعارات لإظهار إشعار رمز الإقران.\n\nبدون هذا الإذن، لن تتمكن من إدخال رمز الإقران بسهولة.</string>
-    <string name="cannot_continue">لا يمكن الاستمرار</string>
-    <string name="notification_permission_required_ladb">إذن الإشعارات مطلوب لاستخدام ميزة إقران LADB. يتيح لنا هذا الإذن عرض معلومات إقران مهمة.\n\nيرجى منح إذن الإشعارات للمتابعة.</string>
-    <string name="enter_pairing_code_hint">أدخل رمز الإقران من صفحة تصحيح أخطاء اللاسلكي في الإشعار.</string>
-    <string name="waiting_for_pairing_discovery">في انتظار اكتشاف خدمة الإقران...</string>
-    <string name="no_connection_config_found">لم يتم العثور على تكوين اتصال. انتظر الاكتشاف التلقائي أو تحقق من تصحيح أخطاء اللاسلكي.</string>
-    <string name="no_logs_to_copy">لا توجد سجلات لنسخها</string>
     <string name="version_format">الإصدار %s</string>
     <string name="firewalling_app">جاري حظر %s</string>
     <string name="added_to_selected_list">تمت إضافة %s إلى القائمة المختارة</string>
     <string name="already_in_list">%s موجود بالفعل في القائمة</string>
     <string name="error_format">خطأ: %s</string>
     <string name="firewall_reboot_message">يجب تفعيل الجدار الناري مرة أخرى بعد إعادة التشغيل. اضغط لفتح التطبيق.</string>
-    <string name="open_developer_settings">فتح إعدادات المطور</string>
-    <string name="ladb_connection_failed_help">فشل الاتصال. يرجى التحقق من:\n1. تفعيل تصحيح أخطاء اللاسلكي في خيارات المطور\n2. الجهاز على نفس الشبكة\n3. لا يوجد جدار ناري يمنع الاتصال</string>
-    <string name="copy_logs_success">تم نسخ السجلات إلى الحافظة!</string>
     <string name="firewall_reboot_title">كان الجدار الناري نشطًا قبل إعادة التشغيل</string>
-    <string name="log_no_pairing_config">لم يتم العثور على تكوين إقران، في انتظار الاكتشاف التلقائي...</string>
-    <string name="log_showing_pairing_notif">عرض إشعار الإقران للتكوين: %1$s:%2$d</string>
-    <string name="log_logging_enabled">تم تفعيل التسجيل</string>
-    <string name="log_daemon_already_running">الخدمة تعمل بالفعل</string>
-    <string name="log_killing_daemon">إيقاف الخدمة عبر LADB...</string>
-    <string name="log_kill_success">تم إرسال أمر الإيقاف بنجاح</string>
-    <string name="log_kill_failed">فشل أمر الإيقاف: %s</string>
-    <string name="log_starting_connection">بدء الاتصال...</string>
-    <string name="log_no_connect_config">لم يتم العثور على تكوين اتصال، في انتظار الاكتشاف التلقائي...</string>
-    <string name="log_connect_config_found">تم العثور على تكوين اتصال عبر الاكتشاف التلقائي</string>
-    <string name="log_scanning_ports">لا يوجد تكوين اتصال، محاولة مسح المنافذ المكتشفة...</string>
-    <string name="log_no_connect_config_final">لم يتم العثور على تكوين اتصال</string>
-    <string name="log_connecting_to">جاري الاتصال بـ %1$s:%2$d</string>
-    <string name="log_connection_failed">فشل الاتصال: %s</string>
-    <string name="log_connection_success">نجح الاتصال</string>
-    <string name="log_daemon_running_skipping">الخدمة تعمل بالفعل، تخطي البدء التلقائي</string>
-    <string name="log_unpairing">إلغاء إقران الجهاز...</string>
-    <string name="log_device_unpaired">تم إلغاء إقران الجهاز</string>
-    <string name="log_logs_cleared">تم مسح السجلات</string>
-    <string name="log_logs_copied">تم نسخ السجلات إلى الحافظة</string>
-    
+
     <string name="firewall_mode_title">وضع الجدار الناري</string>
     <string name="firewall_mode_default">الافتراضي</string>
     <string name="firewall_mode_default_description">جدار ناري تقليدي - حظر تطبيقات محددة</string>
@@ -300,9 +192,9 @@
     <string name="whitelist_info_system_apps_warning">عند تعطيل "إظهار تطبيقات النظام"، لن يتم حظر تطبيقات النظام في وضع القائمة البيضاء.\n\nإذا قمت بتفعيل "إظهار تطبيقات النظام" واستخدام وضع القائمة البيضاء، فإن هذا المزيج لم يتم اختباره بالكامل. استخدمه بحذر.\n\nلا يتم اكتشاف التطبيقات المثبتة في ملف عمل أو مساحة مستنسخة أثناء تشغيل الجدار الناري، وتظل مسموحة حتى تُوقف الجدار الناري ثم تُشغّله مجددًا.</string>
     <string name="firewall_mode_smart_foreground">واجهة ذكية (تجريبي)</string>
     <string name="firewall_mode_smart_foreground_description">السماح فقط للتطبيق الموجود حالياً في الواجهة</string>
-    
+
     <string name="firewall_mode_focus_tracker">متتبع التركيز</string>
-    <string name="firewall_mode_focus_tracker_description">.خارج نطاق التركيز، وقم بتعطيله عندما يكون داخل نطاق التركيزShizuWall قم بتفعيل جدار الحماية عندما يكون </string>
+    <string name="firewall_mode_focus_tracker_description">.خارج نطاق التركيز، وقم بتعطيله عندما يكون داخل نطاق التركيزNetGuard قم بتفعيل جدار الحماية عندما يكون </string>
 
     <string name="firewall_mode_details_button">كيف تعمل هذه الأوضاع؟</string>
     <string name="firewall_mode_details_title">كيف تعمل أوضاع الجدار الناري</string>
@@ -311,9 +203,9 @@
     <string name="firewall_mode_whitelist_details">يُعكس التحديد: تُحظر جميع التطبيقات افتراضياً وتبقى التطبيقات التي تحددها فقط متصلة بالشبكة. لاحظ أنه عند إيقاف \"إظهار تطبيقات النظام\" لا تُحظر تطبيقات النظام في هذا الوضع.</string>
     <string name="firewall_mode_screen_lock_details">تُحظر التطبيقات المحددة عند قفل الشاشة وتُلغى حظرها عند إلغاء القفل. يمكنك ضبط مهلة تأخير حتى لا يؤدي إطفاء الشاشة القصير إلى الحظر. تراقب خدمة في الخلفية حالة القفل، لذلك تستمر بالعمل بعد إعادة التشغيل.</string>
     <string name="firewall_mode_smart_foreground_details">يبقى التطبيق الذي تستخدمه الآن فقط متصلاً بالشبكة. تبقى بقية التطبيقات المحددة محظورة، وينتقل الوصول فور تبديلك إلى تطبيق آخر. تفحص خدمة في الخلفية التطبيق الأمامي مرة كل ثانية تقريباً، لذا يجب أن تظل تعمل وتستهلك قليلاً من البطارية.</string>
-    <string name="firewall_mode_focus_tracker_details">يتبع الجدار الناري تطبيق ShizuWall نفسه: مغادرة ShizuWall أو تصغيره يُفعّل الجدار الناري، وفتحه من جديد يعطّله. مفيد عندما تريد إيقاف الحظر مؤقتاً أثناء تغيير الإعدادات فقط.</string>
+    <string name="firewall_mode_focus_tracker_details">يتبع الجدار الناري تطبيق NetGuard نفسه: مغادرة NetGuard أو تصغيره يُفعّل الجدار الناري، وفتحه من جديد يعطّله. مفيد عندما تريد إيقاف الحظر مؤقتاً أثناء تغيير الإعدادات فقط.</string>
     <string name="firewall_mode_hybrid_details">يحصل كل تطبيق على وضعه الخاص بدلاً من قاعدة واحدة للجميع. لكل تطبيق يمكنك اختيار الحظر الافتراضي (محظور دائماً)، أو المقدمة الذكية (مسموح أثناء الاستخدام فقط)، أو قفل الشاشة (محظور أثناء قفل الشاشة). تعمل كل هذه القواعد في الوقت نفسه.</string>
-    <string name="firewall_mode_details_foreground_note">تحتاج أوضاع المقدمة الذكية والهجين وتتبع التركيز إلى معرفة التطبيق الأمامي. يتم ذلك عبر Shizuku أو عبر صلاحية الاستخدام التي يمنحها ShizuWall لنفسه من خلال الصدفة المرتفعة الصلاحيات في وضعي LADB وRoot.</string>
+    <string name="firewall_mode_details_foreground_note">تحتاج أوضاع المقدمة الذكية والهجين وتتبع التركيز إلى معرفة التطبيق الأمامي. يتم ذلك عبر Shizuku أو عبر صلاحية الاستخدام التي يمنحها NetGuard لنفسه من خلال الصدفة المرتفعة الصلاحيات في وضعي Root.</string>
     <string name="firewall_mode_hybrid">الوضع الهجين</string>
     <string name="firewall_mode_hybrid_description">تكوين الوضع بشكل فردي لكل تطبيق</string>
     <string name="hybrid_mode_default_block">حظر افتراضي</string>
@@ -322,18 +214,15 @@
     <string name="smart_foreground_notification_channel_name">واجهة ذكية (خدمة)</string>
     <string name="smart_foreground_notification_channel_description">خدمة خلفية لمراقبة التطبيقات في الواجهة</string>
     <string name="smart_foreground_active">الواجهة الذكية نشطة</string>
-    
+
     <string name="focus_tracker_active">متتبع التركيز: نشط</string>
     <string name="focus_tracker_paused">متتبع التركيز: غير نشط</string>
     <string name="smart_foreground_active_app">نشط: %s</string>
     <string name="enable_firewall_dialog_title">تفعيل الجدار الناري</string>
     <string name="enable_firewall_dialog_message">هل تريد تفعيل الجدار الناري لـ %d من التطبيقات المدرجة أدناه؟</string>
     <string name="selected_apps_label">التطبيقات المختارة:</string>
-    <string name="prev">السابق</string>
-    <string name="select_font">اختر الخط</string>
     <string name="apply">تطبيق</string>
 
-    <string name="do_not_show_again">لا تظهر مرة أخرى</string>
 
     <string name="floating_button">زر الجدار الناري العائم</string>
     <string name="floating_button_description">إظهار زر عائم قابل للسحب لتغيير حالة الجدار الناري من أي مكان</string>
@@ -347,16 +236,8 @@
     <string name="apply_root_rules_after_reboot">تطبيق قواعد الجدار الناري بعد إعادة التشغيل</string>
     <string name="apply_root_rules_after_reboot_description">إعادة تطبيق آخر قواعد جدار ناري كانت نشطة بعد اكتمال الإقلاع باستخدام root</string>
     <string name="working_mode_root">Root (su)</string>
-    <string name="root_not_found_message">لم يتم العثور على root. يرجى السماح لتطبيق ShizuWall بالوصول إلى صلاحيات root.</string>
+    <string name="root_not_found_message">لم يتم العثور على root. يرجى السماح لتطبيق NetGuard بالوصول إلى صلاحيات root.</string>
     <string name="double_tap_or_long_press">انقر نقراً مزدوجاً لتحديد عدة تطبيقات، واضغط مطولاً لإلغاء تحديد عدة تطبيقات</string>
-    <string name="ladb_daemon_restart_required_title">إعادة تشغيل خدمة LADB</string>
-    <string name="ladb_daemon_restart_required_message">تعذر تفعيل الجدار الناري لأن خدمة LADB فشلت في التفويض أو توقفت عن الاستجابة. افتح إعداد LADB، فعّل الوضع المتقدم، ثم استخدم إيقاف الخدمة وبدء الخدمة.</string>
-    <string name="ladb_daemon_restart_reason_prefix">المشكلات المكتشفة:</string>
-    <string name="ladb_daemon_restart_reason_auth">فشل تفويض الخدمة. قد يكون رمز الخدمة داخل التطبيق والخدمة قيد التشغيل غير متزامنين.</string>
-    <string name="ladb_daemon_restart_reason_unresponsive">الخدمة لا تستجيب أو أن المقبس الخاص بها يرفض الاتصالات.</string>
-    <string name="ladb_daemon_restart_reason_token">تشير سجلات الخدمة إلى مشكلة في الرمز أو إلى غياب ملف الرمز.</string>
-    <string name="ladb_daemon_restart_log_prefix">سجل الخدمة الأخير:</string>
-    <string name="ladb_daemon_log_detected_hint">سجلات الخدمة الأخيرة متاحة في قسم التفاصيل.</string>
     <string name="firewall_reboot_apply_failed_message">فشلت إعادة تطبيق قواعد الجدار الناري بعد إعادة التشغيل. اضغط لفتح التطبيق.</string>
 
     <string name="notification_permission_background_request">يرجى منح الإذن للتشغيل في الخلفية.</string>
@@ -452,12 +333,12 @@
     <string name="app_info_trackers_none">لم يُعثر على متتبعات معروفة</string>
     <string name="app_info_trackers_count">تم العثور على %1$d متتبع</string>
     <string name="app_info_trackers_failed">تعذر فحص هذا التطبيق</string>
-    <string name="app_info_trackers_note">تم اكتشافها بفحص شفرة التطبيق. لا يستخدم ShizuWall شبكة VPN ولا يفحص الحركة. تُقطع هذه المتتبعات طالما التطبيق محظور.</string>
+    <string name="app_info_trackers_note">تم اكتشافها بفحص شفرة التطبيق. لا يستخدم NetGuard شبكة VPN ولا يفحص الحركة. تُقطع هذه المتتبعات طالما التطبيق محظور.</string>
     <string name="tracker_db_description">%1$d توقيع متتبع، مضمّنة مع التطبيق. يعمل الكشف دون اتصال بالإنترنت تمامًا.</string>
     <string name="tracker_data_attribution">بيانات المتتبعات: Exodus Privacy، ODbL 1.0</string>
     <string name="show_other_profiles">إظهار التطبيقات في الملفات الشخصية الأخرى</string>
     <string name="main_profile">الملف الشخصي الرئيسي</string>
-    <string name="show_other_profiles_description">ملف العمل والمساحة الخاصة و Secure Folder والتطبيقات المستنسخة. عند إيقافه، يؤدي حظر تطبيق إلى حظر جميع نسخه أيضًا؛ فعّل هذا الخيار للتحكم في كل نسخة على حدة. يتطلب خدمة خلفية قيد التشغيل (Root أو Shizuku أو LADB) مع منح الأذونات.</string>
+    <string name="show_other_profiles_description">ملف العمل والمساحة الخاصة و Secure Folder والتطبيقات المستنسخة. عند إيقافه، يؤدي حظر تطبيق إلى حظر جميع نسخه أيضًا؛ فعّل هذا الخيار للتحكم في كل نسخة على حدة. يتطلب خدمة خلفية قيد التشغيل (Root أو Shizuku) مع منح الأذونات.</string>
     <string name="show_other_profiles_uncheck_confirm">سيتم إلغاء تحديد أي تطبيق محدد من ملف شخصي آخر وإعادته إلى حالته الافتراضية. ومن الآن فصاعدًا، سيؤدي حظر تطبيق إلى حظر جميع نسخه في الملفات الشخصية الأخرى. هل تريد إلغاء التحديد؟</string>
 
     <string name="app_info_button_title">زر معلومات التطبيق</string>
@@ -475,34 +356,24 @@
     <string name="widget_theme_light">فاتح</string>
     <string name="widget_theme_dark">داكن</string>
     <string name="widget_theme_transparent">شفاف</string>
-    <string name="ladb_adb_method_title">البدء بـ ADB (حاسوب)</string>
-    <string name="ladb_adb_method_description">وصّل الهاتف بحاسوب مع تفعيل تصحيح USB ثم نفّذ هذا الأمر مرة واحدة.</string>
-    <string name="ladb_adb_command_label">الأمر</string>
-    <string name="ladb_adb_command_preparing">جارٍ التحضير…</string>
-    <string name="ladb_copy_command">نسخ الأمر</string>
-    <string name="ladb_command_copied">تم نسخ الأمر</string>
-    <string name="ladb_share_command">مشاركة الأمر</string>
-    <string name="ladb_adb_method_steps">1. فعّل تصحيح USB من خيارات المطور\n2. وصّل الهاتف بالحاسوب ووافق على الطلب\n3. الصق الأمر في الطرفية\n\nأعد تنفيذه بعد كل إعادة تشغيل.</string>
-    <string name="ladb_command_prepare_failed">تعذر تحضير أمر ADB: %1$s</string>
     <string name="remember_deleted_apps">تذكّر التطبيقات المحذوفة</string>
     <string name="remember_deleted_apps_description">احتفظ بحالة الحظر للتطبيقات المحذوفة أو المعطّلة واستعدها عند عودتها</string>
     <string name="foreground_detection_unavailable">تعذّر تشغيل كشف التطبيق الأمامي</string>
-    <string name="foreground_detection_unavailable_message">تعذّر على ShizuWall الوصول إلى المساعد المميّز الذي يحدد التطبيق في المقدمة، لذا لا تستطيع أوضاع Smart Foreground وHybrid وFocus Tracker إدارة التطبيقات. تأكد من إعداد وضع العمل (Shizuku أو LADB أو Root) وتشغيله.</string>
+    <string name="foreground_detection_unavailable_message">تعذّر على NetGuard الوصول إلى المساعد المميّز الذي يحدد التطبيق في المقدمة، لذا لا تستطيع أوضاع Smart Foreground وHybrid وFocus Tracker إدارة التطبيقات. تأكد من إعداد وضع العمل (Shizuku أو Root) وتشغيله.</string>
     <string name="empty_app_list_title">لا توجد تطبيقات لعرضها</string>
     <string name="empty_app_list_message">يتم عرض التطبيقات المثبتة من قِبل المستخدم فقط. فعّل تطبيقات النظام لعرض كل ما هو مثبت على هذا الجهاز.</string>
     <string name="empty_app_list_action">إظهار تطبيقات النظام</string>
     <string name="empty_app_list_search_title">لا توجد نتائج</string>
     <string name="empty_app_list_search_message">لا يوجد تطبيق يطابق بحثك.</string>
     <string name="backend_banner_title">الإعداد مطلوب</string>
-    <string name="backend_banner_message_shizuku">يحتاج ShizuWall إلى تشغيل Shizuku ومنحه الإذن قبل أن يتمكن من حظر أي تطبيق.</string>
-    <string name="backend_banner_message_ladb">يحتاج ShizuWall إلى تشغيل خدمة ADB المحلية قبل أن يتمكن من حظر أي تطبيق. أقرِن الجهاز عبر تصحيح الأخطاء اللاسلكي لبدء تشغيلها.</string>
-    <string name="backend_banner_message_root">يحتاج ShizuWall إلى صلاحيات الروت قبل أن يتمكن من حظر أي تطبيق.</string>
+    <string name="backend_banner_message_shizuku">يحتاج NetGuard إلى تشغيل Shizuku ومنحه الإذن قبل أن يتمكن من حظر أي تطبيق.</string>
+    <string name="backend_banner_message_root">يحتاج NetGuard إلى صلاحيات الروت قبل أن يتمكن من حظر أي تطبيق.</string>
     <string name="backend_banner_action">إعداد</string>
     <string name="app_unsupported_system_uid">لا يسمح نظام Android بقواعد لكل تطبيق لتطبيقات النظام التي تشترك في معرّف UID للنظام.</string>
     <string name="settings_category_security_title">الأمان</string>
     <string name="settings_category_security_desc">قفل التطبيق ورمز PIN والقياسات الحيوية</string>
     <string name="app_lock_title">قفل التطبيق</string>
-    <string name="app_lock_description">طلب رمز PIN أو القياسات الحيوية لفتح ShizuWall</string>
+    <string name="app_lock_description">طلب رمز PIN أو القياسات الحيوية لفتح NetGuard</string>
     <string name="app_lock_use_biometrics">استخدام القياسات الحيوية</string>
     <string name="app_lock_use_biometrics_description">افتح ببصمة الإصبع أو الوجه بدل كتابة رمز PIN</string>
     <string name="app_lock_change_pin">تغيير رمز PIN</string>
@@ -512,25 +383,20 @@
     <string name="app_lock_pin_mismatch">رمزا PIN غير متطابقين</string>
     <string name="app_lock_pin_length_required">أدخل %1$d أرقام</string>
     <string name="app_lock_pin_length">طول رمز PIN</string>
-    <string name="app_lock_pin_not_recoverable">لا يمكن استرداد رمز PIN. إذا نسيته، فالحل الوحيد هو مسح بيانات تطبيق ShizuWall، مما يحذف جميع الإعدادات والملفات الشخصية.</string>
-    <string name="app_lock_scope_warning">هذا القفل يمنع فقط فتح ShizuWall. قواعد جدار الحماية مخزّنة في نظام أندرويد، لذا لا يزال ممكنًا تغييرها من تطبيقات الماكرو أو بثّ ADB أو مربع الإعدادات السريعة أو الويدجت.</string>
+    <string name="app_lock_pin_not_recoverable">لا يمكن استرداد رمز PIN. إذا نسيته، فالحل الوحيد هو مسح بيانات تطبيق NetGuard، مما يحذف جميع الإعدادات والملفات الشخصية.</string>
+    <string name="app_lock_scope_warning">هذا القفل يمنع فقط فتح NetGuard. قواعد جدار الحماية مخزّنة في نظام أندرويد، لذا لا يزال ممكنًا تغييرها من تطبيقات الماكرو أو بثّ ADB أو مربع الإعدادات السريعة أو الويدجت.</string>
     <string name="app_lock_biometric_offer_title">استخدام البصمة لفتح القفل؟</string>
-    <string name="app_lock_biometric_offer_message">إذا فعّلت هذا، فسيتمكن أي شخص يستطيع فتح قفل الجهاز ببصمته أو وجهه من فتح ShizuWall وتغيير جدار الحماية. اتركه معطلاً إذا كان الجهاز مشتركًا ويجب أن تتحكم أنت وحدك بجدار الحماية.</string>
+    <string name="app_lock_biometric_offer_message">إذا فعّلت هذا، فسيتمكن أي شخص يستطيع فتح قفل الجهاز ببصمته أو وجهه من فتح NetGuard وتغيير جدار الحماية. اتركه معطلاً إذا كان الجهاز مشتركًا ويجب أن تتحكم أنت وحدك بجدار الحماية.</string>
     <string name="app_lock_biometric_offer_enable">استخدام البصمة</string>
     <string name="app_lock_biometric_offer_pin_only">رمز PIN فقط</string>
     <string name="app_lock_wrong_pin">رمز PIN غير صحيح</string>
     <string name="app_lock_locked_out">محاولات كثيرة جدًا. أعد المحاولة خلال %1$d ثانية</string>
-    <string name="app_lock_biometric_title">فتح ShizuWall</string>
+    <string name="app_lock_biometric_title">فتح NetGuard</string>
     <string name="app_lock_use_pin">استخدام رمز PIN</string>
     <string name="app_lock_pin_saved">تم حفظ رمز PIN</string>
     <string name="app_lock_delete">حذف</string>
     <string name="app_lock_submit">تأكيد</string>
-    <string name="contact_developer">التواصل مع المطور</string>
-    <string name="contact_developer_description">أرسل ملاحظاتك أو أبلغ عن مشكلة</string>
-    <string name="contact_developer_no_app">لم يتم العثور على تطبيق بريد</string>
     <string name="changelog_title">الجديد في %1$s</string>
     <string name="changelog_message">• خيارات مظهر جديدة: إخفاء التطبيقات ذات معرّف UID النظام المشترك والتطبيقات التي لا تملك إذن الإنترنت</string>
-    <string name="whats_new">الجديد</string>
-    <string name="whats_new_description">اطّلع على تغييرات هذا الإصدار</string>
     <string name="dismiss">تجاهل</string>
 </resources>

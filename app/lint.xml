@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <lint>
     <issue id="BlockedPrivateApi">
-        <ignore path="src/main/java/com/arslan/shizuwall/daemon/SystemDaemon.java" />
+        <ignore path="src/main/java/com/flandre/netguard/firewall/PrivilegedHelper.java" />
     </issue>
 </lint>

@@ -1,0 +1,47 @@
+package com.flandre.netguard.adapters
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.flandre.netguard.R
+import com.flandre.netguard.model.AppInfo
+import com.flandre.netguard.utils.MultiUserApps
+import com.flandre.netguard.utils.UiUtils
+
+class SelectedAppsAdapter(
+    private val appList: List<AppInfo>
+) : RecyclerView.Adapter<SelectedAppsAdapter.ViewHolder>() {
+
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val appIcon: ImageView = itemView.findViewById(R.id.appIcon)
+        val appName: TextView = itemView.findViewById(R.id.appName)
+        val profileBadge: TextView = itemView.findViewById(R.id.profileBadge)
+
+        fun bind(appInfo: AppInfo) {
+            UiUtils.loadAppIcon(appIcon, appInfo.packageName, appInfo.userId)
+            appName.text = appInfo.appName
+
+            if (appInfo.userId != 0) {
+                profileBadge.visibility = View.VISIBLE
+                profileBadge.text = MultiUserApps.userLabel(itemView.context, appInfo.userId)
+            } else {
+                profileBadge.visibility = View.GONE
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_selected_app, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(appList[position])
+    }
+
+    override fun getItemCount(): Int = appList.size
+}

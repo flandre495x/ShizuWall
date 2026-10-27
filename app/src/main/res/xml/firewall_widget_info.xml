@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.arslan.shizuwall.ui.FirewallWidgetConfigActivity"
+    android:configure="com.flandre.netguard.ui.FirewallWidgetConfigActivity"
     android:description="@string/widget_firewall_description"
     android:initialLayout="@layout/widget_firewall"
     android:label="@string/widget_firewall_label"

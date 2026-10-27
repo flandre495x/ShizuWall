@@ -1,0 +1,125 @@
+package com.flandre.netguard.receivers
+
+import android.app.NotificationManager
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import com.flandre.netguard.R
+import com.flandre.netguard.shell.ShellExecutorProvider
+import com.flandre.netguard.ui.MainActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import com.flandre.netguard.firewall.FirewallCommands
+
+class NotificationActionReceiver : BroadcastReceiver() {
+
+    companion object {
+        const val ACTION_FIREWALL_APP = "com.flandre.netguard.ACTION_FIREWALL_APP"
+        const val ACTION_ADD_TO_LIST = "com.flandre.netguard.ACTION_ADD_TO_LIST"
+        const val ACTION_WHITELIST_APP = "com.flandre.netguard.ACTION_WHITELIST_APP"
+        const val ACTION_ALLOW_AND_UNSELECT = "com.flandre.netguard.ACTION_ALLOW_AND_UNSELECT"
+        const val ACTION_DISMISS = "com.flandre.netguard.ACTION_DISMISS"
+        const val EXTRA_PACKAGE_NAME = "extra_package_name"
+    }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        val packageName = intent.getStringExtra(EXTRA_PACKAGE_NAME) ?: return
+        val notificationId = intent.getIntExtra("notification_id", -1)
+
+        when (intent.action) {
+            ACTION_FIREWALL_APP -> {
+                firewallApp(context, packageName)
+            }
+            ACTION_ADD_TO_LIST -> {
+                addToList(context, packageName)
+            }
+            ACTION_WHITELIST_APP -> {
+                val pending = goAsync()
+                whitelistApp(context, packageName, pending)
+            }
+            ACTION_ALLOW_AND_UNSELECT -> {
+                val pending = goAsync()
+                allowAndUnselect(context, packageName, pending)
+            }
+        }
+
+        (context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager)
+            .cancel(if (notificationId != -1) notificationId else 3000 + packageName.hashCode())
+    }
+
+    private fun firewallApp(context: Context, packageName: String) {
+        addToList(context, packageName, showToast = false)
+
+        val controlIntent = Intent(context, FirewallControlReceiver::class.java).apply {
+            action = MainActivity.ACTION_FIREWALL_CONTROL
+            putExtra(MainActivity.EXTRA_FIREWALL_ENABLED, true)
+            putExtra(MainActivity.EXTRA_PACKAGES_CSV, packageName)
+            putExtra(FirewallControlReceiver.EXTRA_AUTOMATION_EVENT, true)
+        }
+        context.sendBroadcast(controlIntent)
+        Toast.makeText(context, context.getString(R.string.firewalling_app, packageName), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun whitelistApp(context: Context, packageName: String, pending: PendingResult) {
+        addToList(context, packageName, showToast = false)
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val result = ShellExecutorProvider.forContext(context).exec(FirewallCommands.unblock(packageName))
+                if (result.isEffectivelySuccess) {
+                    val prefs = context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+                    val activePkgs = prefs.getStringSet(MainActivity.KEY_ACTIVE_PACKAGES, emptySet())?.toMutableSet() ?: mutableSetOf()
+                    activePkgs.remove(packageName)
+                    prefs.edit().putStringSet(MainActivity.KEY_ACTIVE_PACKAGES, activePkgs).apply()
+                }
+            } finally {
+                pending.finish()
+            }
+        }
+        Toast.makeText(context, context.getString(R.string.allowing_app, packageName), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun allowAndUnselect(context: Context, packageName: String, pending: PendingResult) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val result = ShellExecutorProvider.forContext(context).exec(FirewallCommands.unblock(packageName))
+                if (result.isEffectivelySuccess) {
+                    val prefs = context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+                    val selected = prefs.getStringSet(MainActivity.KEY_SELECTED_APPS, emptySet())?.toMutableSet() ?: mutableSetOf()
+                    val active = prefs.getStringSet(MainActivity.KEY_ACTIVE_PACKAGES, emptySet())?.toMutableSet() ?: mutableSetOf()
+                    selected.remove(packageName)
+                    active.remove(packageName)
+                    prefs.edit()
+                        .putStringSet(MainActivity.KEY_SELECTED_APPS, selected)
+                        .putInt(MainActivity.KEY_SELECTED_COUNT, selected.size)
+                        .putStringSet(MainActivity.KEY_ACTIVE_PACKAGES, active)
+                        .apply()
+                }
+            } finally {
+                pending.finish()
+            }
+        }
+        Toast.makeText(context, context.getString(R.string.allowing_app, packageName), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun addToList(context: Context, packageName: String, showToast: Boolean = true) {
+        val prefs = context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE)
+        val selectedApps = prefs.getStringSet(MainActivity.KEY_SELECTED_APPS, emptySet())?.toMutableSet() ?: mutableSetOf()
+        
+        if (selectedApps.add(packageName)) {
+            prefs.edit()
+                .putStringSet(MainActivity.KEY_SELECTED_APPS, selectedApps)
+                .putInt(MainActivity.KEY_SELECTED_COUNT, selectedApps.size)
+                .apply()
+            if (showToast) {
+                Toast.makeText(context, context.getString(R.string.added_to_selected_list, packageName), Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            if (showToast) {
+                Toast.makeText(context, context.getString(R.string.already_in_list, packageName), Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+}

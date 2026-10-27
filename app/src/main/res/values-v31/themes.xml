@@ -1,5 +1,5 @@
 <resources>
-    <style name="Base.Theme.ShizuWall" parent="Theme.ShizuWallBase">
+    <style name="Base.Theme.NetGuard" parent="Theme.NetGuardBase">
         <item name="android:windowSplashScreenBackground">@color/black</item>
     </style>
 </resources>

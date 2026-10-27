@@ -9,15 +9,24 @@ plugins {
 }
 
 android {
-    namespace = "com.arslan.shizuwall"
+    namespace = "com.flandre.netguard"
     compileSdk = 36
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../../flandre.jks")
+            storePassword = "Flandre495Scarlet"
+            keyAlias = "flandrekey"
+            keyPassword = "Flandre495Scarlet"
+        }
+    }
+
     defaultConfig {
-        applicationId = "com.arslan.shizuwall"
+        applicationId = "com.flandre.netguard"
         minSdk = 30
         targetSdk = 36
-        versionCode = 53
-        versionName = "4.6.8"
+        versionCode = 54
+        versionName = "4.9.5"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -31,6 +40,7 @@ android {
                 "proguard-rules.pro"
             )
             isDebuggable = false
+            signingConfig = signingConfigs.getByName("release")
             manifestPlaceholders["appLabel"] = "@string/app_name"
             ndk {
                 abiFilters += listOf("arm64-v8a", "armeabi-v7a")
@@ -40,7 +50,7 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
             applicationIdSuffix = ".debug"
-            manifestPlaceholders["appLabel"] = "ShizuWall Debug"
+            manifestPlaceholders["appLabel"] = "NetGuard Debug"
         }
     }
 
@@ -62,10 +72,7 @@ android {
                 "META-INF/versions/**",
                 "DebugProbesKt.bin",
                 "META-INF/maven/**",
-                "META-INF/proguard/**",
-                "org/bouncycastle/pqc/**",
-                "org/bouncycastle/x509/*.properties",
-                "org/bouncycastle/pkix/*.properties"
+                "META-INF/proguard/**"
             )
         }
         jniLibs {
@@ -92,7 +99,7 @@ android {
     applicationVariants.all {
         outputs.all {
             val output = this as com.android.build.gradle.internal.api.ApkVariantOutputImpl
-            val appName = "ShizuWall"
+            val appName = "NetGuard"
             val version = versionName
             val type = buildType.name
             output.outputFileName = "$appName-$version-$type.apk"
@@ -120,14 +127,9 @@ dependencies {
     implementation ("dev.rikka.shizuku:api:$shizuku_version")
     implementation ("dev.rikka.shizuku:provider:$shizuku_version")
 
-    implementation ("com.github.MuntashirAkon:libadb-android:3.1.1")
-    implementation ("org.conscrypt:conscrypt-android:2.5.3")
-
-    implementation ("org.bouncycastle:bcprov-jdk15to18:1.81")
-    implementation ("org.bouncycastle:bcpkix-jdk15to18:1.81")
 }
 
-abstract class CompileDaemonDexTask : DefaultTask() {
+abstract class CompilePrivilegedHelperTask : DefaultTask() {
     @get:InputFile
     abstract val javaSource: RegularFileProperty
 
@@ -183,9 +185,9 @@ abstract class CompileDaemonDexTask : DefaultTask() {
             .filter { it.isFile && it.extension == "class" }
             .map { it.absolutePath }
             .toList()
-        require(classFiles.isNotEmpty()) { "javac produced no .class files for the daemon" }
+        require(classFiles.isNotEmpty()) { "javac produced no .class files for the privileged helper" }
 
-        val dexZip = File(work, "daemon.zip")
+        val dexZip = File(work, "privileged-helper.zip")
         execOps.exec {
             commandLine(
                 buildList {
@@ -204,27 +206,28 @@ abstract class CompileDaemonDexTask : DefaultTask() {
         fsOps.copy {
             from(archiveOps.zipTree(dexZip)) {
                 include("classes.dex")
-                rename("classes.dex", "daemon.bin")
+                rename("classes.dex", "privileged-helper.bin")
             }
             into(out)
         }
     }
 }
 
-val compileDaemonDex = tasks.register<CompileDaemonDexTask>("compileDaemonDex") {
-    javaSource.set(layout.projectDirectory.file("src/main/java/com/arslan/shizuwall/daemon/SystemDaemon.java"))
+val compilePrivilegedHelper = tasks.register<CompilePrivilegedHelperTask>("compilePrivilegedHelper") {
+    javaSource.set(layout.projectDirectory.file("src/main/java/com/flandre/netguard/firewall/PrivilegedHelper.java"))
     sdkDirectory.set(layout.dir(provider { android.sdkDirectory }))
     buildToolsVersion.set(provider { android.buildToolsVersion })
     compileSdkVersion.set(provider { android.compileSdk!! })
     minApi.set(provider { android.defaultConfig.minSdk!! })
-    workDir.set(layout.buildDirectory.dir("intermediates/daemonDex"))
+    workDir.set(layout.buildDirectory.dir("intermediates/privilegedHelper"))
+    outputDir.set(layout.buildDirectory.dir("generated/assets/privilegedHelper"))
 }
 
 androidComponents {
     onVariants { variant ->
         variant.sources.assets?.addGeneratedSourceDirectory(
-            compileDaemonDex,
-            CompileDaemonDexTask::outputDir
+            compilePrivilegedHelper,
+            CompilePrivilegedHelperTask::outputDir
         )
     }
 }

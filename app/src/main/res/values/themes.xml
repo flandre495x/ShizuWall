@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.ShizuWallBase" parent="Theme.Material3Expressive.DayNight.NoActionBar">
-        <item name="chipStyle">@style/Widget.ShizuWall.Chip</item>
-        <item name="materialCardViewStyle">@style/Widget.ShizuWall.CardView</item>
+    <style name="Theme.NetGuardBase" parent="Theme.Material3Expressive.DayNight.NoActionBar">
+        <item name="chipStyle">@style/Widget.NetGuard.Chip</item>
+        <item name="materialCardViewStyle">@style/Widget.NetGuard.CardView</item>
         <item name="materialIconButtonStyle">@style/Widget.Material3Expressive.Button.IconButton.Standard</item>
         <item name="materialIconButtonFilledStyle">@style/Widget.Material3Expressive.Button.IconButton.Filled</item>
         <item name="materialIconButtonFilledTonalStyle">@style/Widget.Material3Expressive.Button.IconButton.Tonal</item>
@@ -17,52 +17,17 @@
         <item name="snackbarButtonStyle">@style/Widget.Material3Expressive.Button.TextButton.Snackbar</item>
     </style>
 
-    <style name="Base.Theme.ShizuWall" parent="Theme.ShizuWallBase" />
+    <style name="Base.Theme.NetGuard" parent="Theme.NetGuardBase" />
 
-    <style name="Theme.ShizuWall" parent="Base.Theme.ShizuWall" />
+    <style name="Theme.NetGuard" parent="Base.Theme.NetGuard" />
 
-    <style name="Theme.ShizuWall.Amoled" parent="Theme.ShizuWall">
-        <item name="android:windowBackground">@android:color/black</item>
-        <item name="colorSurface">@android:color/black</item>
-        <item name="android:colorBackground">@android:color/black</item>
-        <item name="colorSurfaceDim">@android:color/black</item>
-        <item name="colorSurfaceBright">@android:color/black</item>
-        <item name="colorSurfaceContainerLowest">#FF050505</item>
-        <item name="colorSurfaceContainerLow">#FF0A0A0A</item>
-        <item name="colorSurfaceContainer">#FF111111</item>
-        <item name="colorSurfaceContainerHigh">#FF171717</item>
-        <item name="colorSurfaceContainerHighest">#FF1F1F1F</item>
-    </style>
+    <style name="Widget.NetGuard.Chip" parent="Widget.Material3.Chip.Filter" />
 
-    <style name="Theme.ShizuWall.Ndot" parent="Theme.ShizuWall">
-        <item name="android:fontFamily">@font/ndot</item>
-        <item name="fontFamily">@font/ndot</item>
-        <item name="chipStyle">@style/Widget.ShizuWall.Chip.Ndot</item>
-    </style>
-
-    <style name="Theme.ShizuWall.Amoled.Ndot" parent="Theme.ShizuWall.Amoled">
-        <item name="android:fontFamily">@font/ndot</item>
-        <item name="fontFamily">@font/ndot</item>
-        <item name="chipStyle">@style/Widget.ShizuWall.Chip.Ndot</item>
-    </style>
-
-    <style name="Widget.ShizuWall.Chip" parent="Widget.Material3.Chip.Filter" />
-
-    <style name="Widget.ShizuWall.CardView" parent="Widget.Material3.CardView.Filled">
+    <style name="Widget.NetGuard.CardView" parent="Widget.Material3.CardView.Filled">
         <item name="cardBackgroundColor">?attr/colorSurfaceContainerHigh</item>
     </style>
 
-    <style name="Widget.ShizuWall.Chip.Ndot" parent="Widget.ShizuWall.Chip">
-        <item name="android:fontFamily">@font/ndot</item>
-        <item name="fontFamily">@font/ndot</item>
-        <item name="android:textAppearance">@style/TextAppearance.ShizuWall.Chip.Ndot</item>
-    </style>
-
-    <style name="TextAppearance.ShizuWall.Chip.Ndot" parent="TextAppearance.Material3.LabelLarge">
-        <item name="android:fontFamily">@font/ndot</item>
-        <item name="fontFamily">@font/ndot</item>
-    </style>
-    <style name="Widget.ShizuWall.AppLockKey" parent="Widget.Material3.Button.TonalButton">
+    <style name="Widget.NetGuard.AppLockKey" parent="Widget.Material3.Button.TonalButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">64dp</item>
         <item name="android:layout_columnWeight">1</item>
@@ -73,12 +38,12 @@
         <item name="cornerRadius">32dp</item>
     </style>
 
-    <style name="Widget.ShizuWall.AppLockKey.Secondary" parent="Widget.ShizuWall.AppLockKey">
+    <style name="Widget.NetGuard.AppLockKey.Secondary" parent="Widget.NetGuard.AppLockKey">
         <item name="backgroundTint">?attr/colorSurfaceContainerHighest</item>
         <item name="iconTint">?attr/colorOnSurfaceVariant</item>
     </style>
 
-    <style name="Widget.ShizuWall.AppLockKey.Confirm" parent="Widget.ShizuWall.AppLockKey">
+    <style name="Widget.NetGuard.AppLockKey.Confirm" parent="Widget.NetGuard.AppLockKey">
         <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="iconTint">?attr/colorOnPrimary</item>
     </style>

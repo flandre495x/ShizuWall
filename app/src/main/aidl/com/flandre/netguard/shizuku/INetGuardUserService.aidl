@@ -1,0 +1,13 @@
+package com.flandre.netguard.shizuku;
+
+import com.flandre.netguard.shizuku.INetGuardForegroundListener;
+
+interface INetGuardUserService {
+    void destroy() = 16777114;
+    String setUidFirewallRule(int chain, int uid, int rule) = 1;
+    String[] setUidFirewallRules(int chain, in int[] uids, in int[] rules) = 2;
+    String getForegroundTask() = 3;
+    void startForegroundWatch(INetGuardForegroundListener listener) = 4;
+    void stopForegroundWatch() = 5;
+    String setFirewallChainEnabled(boolean enabled) = 6;
+}
